@@ -1,0 +1,111 @@
+﻿/*
+-- drop table company
+
+CREATE TABLE public.company
+(
+  id SERIAL NOT NULL,
+  companyid character varying(20) NOT NULL,
+  companyname character varying(50), 
+  username    character varying(20), 
+  password character varying(20), 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT company_pkey PRIMARY KEY (companyid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+
+*/
+
+-- insert into company(companyid, companyname, username, password) values ('hesa', 'fletes hesa sa de cv', 'acenteno', '332211');
+
+/*
+-- drop table driver
+
+CREATE TABLE public.driver
+(
+  id SERIAL NOT NULL,
+  drivercode character varying(20) NOT NULL,
+  name character varying(50), 
+  lastname character varying(50), 
+  license character varying(50), 
+  licensetype character varying(1),
+  licensedue date, 
+  companyid character varying(20) NOT NULL,  
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT driver_pkey PRIMARY KEY (drivercode)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+
+*/
+
+/*
+ insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid) 
+   values ('op-01', 'adolfo', 'centeno', '010000002360078',  'B', '2020-10-21', 'hesa');
+ insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid) 
+   values ('op-02', 'alejandro', 'reyes', '090000007770099',  'C', '2022-08-20', 'hesa');
+*/
+-- select * from driver
+
+/*
+-- drop table orderstatus
+
+CREATE TABLE public.orderstatus
+(
+  id SERIAL NOT NULL,
+  orderstatusid integer NOT NULL,
+  description character varying(100), 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT orderstatus_orderstatusid PRIMARY KEY (orderstatusid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.order
+  OWNER TO adsoft;
+
+*/
+
+-- insert into orderstatus(orderstatusid, description) values (1, 'cargando');
+-- insert into orderstatus(orderstatusid, description) values (2, 'en curso');
+-- select * from orderstatus
+
+-- drop table public.order
+/*
+CREATE TABLE public.order
+(
+  id SERIAL NOT NULL,
+  orderid integer NOT NULL,
+  description character varying(100),
+  origin character varying(100),
+  target character varying(100),
+  orderstatusid integer not null,
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+
+
+  
+  CONSTRAINT order_pkey PRIMARY KEY (orderid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.order
+  OWNER TO adsoft;
+
+*/
+
+--alter table public.order add constraint order_orderstatusid_fkey foreign key (orderstatusid) references public.orderstatus(orderstatusid) 
+--drop table public.order;
+--select * from public.order;
+
+--insert into public.order(orderid, description, origin, target, orderstatusid) values (2, 'order 2', 'mex', 'tij', 1);

@@ -1,0 +1,494 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Game Collector App
+# during dev, should point to your local machine
+host: localhost:10010
+#host: eco-seeker-213615.appspot.com
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /operadores:
+    x-swagger-router-controller: operadores.controller
+    get:
+      description: get the operadores list
+      operationId: getOperadores
+      parameters:
+        - name: name
+          in: query
+          type: string
+          required: false
+      #  - name: sort
+      #    in: query
+      #    type: string
+      #    required: false
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetOperadoresListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: add a new operador to the db
+      operationId: createOperador
+      parameters:
+        - in: body
+          name: operador
+          description: The operador to create.
+          schema:
+            $ref: "#/definitions/Operador"
+          required: true
+ 
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetOperadorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /operadores/{id}:
+    x-swagger-router-controller: operadores.controller
+    get:
+      description: get a operador
+      operationId: getOperadorById
+      parameters:
+        - name: id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetOperadorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      description: update an operador
+      operationId: updateOperador
+      parameters:
+        - name: id
+          description: operador id
+          type: string
+          in: path
+          required: true
+        - in: body
+          name: operator
+          description: The Operador to update.
+          schema:
+            $ref: "#/definitions/Operador"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetOperadorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"  
+    delete:
+      description: delete a operador
+      operationId: deleteOperador
+      parameters:
+        - name: id
+          description: operador id
+          type: string
+          in: path
+          required: true
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GetOperadorResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /operadores/login:
+    x-swagger-router-controller: operadores.controller
+    get:
+      tags:
+        - operador
+      summary: Logs operador into the system
+      description: ''
+      operationId: getOperadoresLogin
+      produces:
+        - application/json
+      parameters:
+        - name: operadores_email
+          in: query
+          description: The operador name for login
+          required: true
+          type: string
+        - name: operadores_loginmanual
+          in: query
+          description: The password for login in clear text
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetOperadorResponse'
+        '400':
+          description: Invalid username/password supplied
+
+  /dispositivo:
+    get:
+      tags:
+      - dispositivo
+      description: "Obtiene la lista de dispositivos"
+      operationId: "getAlldispositivos"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Dispositivo"
+        404:
+          description: "Dispositivos no encontrados"
+      x-swagger-router-controller: Dispositivo
+  
+  '/dispositivo/{dispositivo_id}':
+    get:
+      tags:
+        - dispositivo
+      summary: Find Dispositivo by ID
+      description: Returns a single Dispositivo
+      operationId: getDispositivoById
+      produces:
+        - application/json
+      parameters:
+        - name: dispositivo_id
+          in: path
+          description: ID of dispositivo to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Dispositivo'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Dispositivo not found
+      x-swagger-router-controller: Dispositivo
+
+  /place:
+    get:
+      tags:
+      - place
+      description: "Obtiene la lista de lugares o puntos clave por cliente"
+      operationId: "getAllplaces"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Place"
+        404:
+          description: "Lugares no encontrados"
+      x-swagger-router-controller: Place
+
+
+  /licencias/login:
+    x-swagger-router-controller: licencias.controller
+    get:
+      tags:
+        - licencia
+      summary: Logs cliente into the system
+      description: ''
+      operationId: getLoginLicencia
+      produces:
+        - application/json
+      parameters:
+        - name: licencia_usuario
+          in: query
+          description: The user name for login
+          required: true
+          type: string
+        - name: licencia_password
+          in: query
+          description: The password for login in clear text
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Licencia'
+        '400':
+          description: Invalid username/password supplied
+
+  /viajes:
+    x-swagger-router-controller: viajes.controller
+
+    get:
+      tags:
+      - viajes
+      description: "Obtiene la lista de viajes"
+      operationId: "getAllViajes"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetViajeListResponse"
+        404:
+          description: "Viajes not found"
+    post:
+      tags:
+      - viajes
+      description: "inserta un nuevo viaje"
+      operationId: "addViaje"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+          name: body
+          description: Viaje object that needs to be added
+          required: true
+          schema:
+            $ref: '#/definitions/Viaje'      
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Viaje'
+        '400':
+          description: Invalid Order
+
+  '/viajes/{viajeId}':
+    x-swagger-router-controller: viajes.controller
+
+    get:
+      tags:
+        - viajes
+      summary: Find Viaje by ID
+      description: Returns a single Viaje
+      operationId: getViajeById
+      produces:
+        - application/json
+      parameters:
+        - name: viajeId
+          in: path
+          description: ID of viaje to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Viaje'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Viaje not found
+
+
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+
+  Dispositivo:
+    type: object
+    properties:
+      uid:
+        type: string
+      descripcion:
+        type: string
+    
+    example:
+      uid: '001'
+      descripcion: 'Android alcatel'
+    xml:
+      name: Dispositivo
+  
+
+  Operador:
+    type: object
+    properties:
+      codigo:
+        type: integer
+      nombre:
+        type: string
+      apellidos:
+        type: string
+      id_flota:
+        type: string
+      tag:
+        type: string
+      email:
+        type: string
+      loginmanual:
+        type: string
+
+    example:
+      codigo: 100
+      nombre: 'adolfo'
+      apellidos: 'centeno tellez'
+      id_flota: 'hesa'
+      tag: 'QWERTY123'
+      email: 'adsoft@live.com.mx'
+      loginmanual: '99887766'
+
+    xml:
+      name: Operador
+
+      
+  Viaje:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+      orderid:
+        type: integer
+      description:
+        type: string
+      origin:
+        type: string
+      target:
+        type: string
+      orderstatusid:
+        type: integer
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetViajeListResponse:
+    required:
+      - operadores
+    properties:
+      operadores:
+        type: array
+        items:
+          $ref: "#/definitions/Viaje"
+
+  Licencia:
+    type: object
+    properties:
+      id_cliente:
+        type: string
+      usuario:
+        type: string
+      password:
+        type: string
+    example:
+      id_cliente: 'hesa'
+      usuario: 'adsoft@live.com.mx'
+      password: 'xzy321'
+    xml:
+      name: Licencia
+
+  Place:
+    type: object
+    properties:
+      id_flota:
+        type: string
+      nombre:
+        type: string
+      descripcion:
+        type: string
+      tag:
+        type: string
+
+    example:
+      id_flota: '001'
+      nombre: 'hesa'
+      descripcion: 'fletes hesa sa de cv'
+      tag: 'aabbccdd99'
+    xml:
+      name: Place
+
+  
+  GetOperadorResponse:
+    type: object
+    properties:
+      id:
+        type: number
+        description: identifier
+      codigo: 
+        type: string
+        description: codigo del operador
+      nombre:
+        type: string
+        description: nombre del operador
+      apellidos:
+        type: string
+      id_flota:
+        type: string
+      tag:
+        type: string
+      email:
+        type: string
+      loginmanual:
+        type: string
+
+        #  required:
+  #    - id
+  #    - codigo
+  #    - nombre
+  GetOperadoresListResponse:
+    required:
+      - operadores
+    properties:
+      operadores:
+        type: array
+        items:
+          $ref: "#/definitions/GetOperadorResponse"
+
+  GeneralResponse:
+    type: object
+    properties:
+      message:
+        type: string
+    required:
+      - message
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        $ref: '#/definitions/ErrorIntResponse'
+  ErrorIntResponse:
+    properties:
+      code:
+        type: number
+      message:
+        type: string
+      description:
+        type: string
+    required:
+      - message
