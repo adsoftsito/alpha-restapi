@@ -124,7 +124,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 
   /operadores/login:
-    x-swagger-router-controller: operadores.controller
+    x-swagger-router-controller: drivers.controller
     get:
       tags:
         - operador
@@ -242,6 +242,8 @@ paths:
             $ref: '#/definitions/Licencia'
         '400':
           description: Invalid username/password supplied
+          schema:
+            $ref: '#/definitions/GeneralResponse'
 
   /viajes:
     x-swagger-router-controller: viajes.controller

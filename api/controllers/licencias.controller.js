@@ -1,11 +1,16 @@
 'use strict';
 
-var _ = require('lodash');
+const _ = require('lodash');
+const util = require('util');	// Required in swagger sample controller
+var shortid = require('shortid');
 
 var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var licenciasService = require('../services/licencias.service');
 var utils = require('../utils/writer.js');
+
+const { company } = require('../models');	// Sequelize
+
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,18 +37,28 @@ function getLoginLicencia(req, res) {
       licencia_password: req.swagger.params.licencia_password.value
     };
 
+    console.log('login cliente...');
+    console.log(company);
     // Call to service
+    company
+    .findOne({ where: {username: params.licencia_usuario, password : params.licencia_password } })
+    .then(mylicencia => {
 
-    licenciasService.getLoginLicencia(params)
-        .then(function (response) {
-            utils.writeJson(res, response);
-        })
-        .catch(function (response) {
-            utils.writeJson(res, response);
-    });
+      //console.log(mylicencia);
+
+      if (!mylicencia) {
+        res.status(200).send({
+          message: 'Licencia Not Found'
+        });
+      }
+      else
+        res.status(200).send(mylicencia);
+    })
+    .catch(error => res.status(200).send(error));
    
    
   } catch (error) {
+    console.log(error);
     controllerHelper.handleErrorResponse(MODULE_NAME, getLoginLicencia.name, error, res);
   }
 }

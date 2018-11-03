@@ -102,11 +102,30 @@ function getOperadoresLogin(req, res) {
     // Receiving parameters
     var params = {
       operadores_email: req.swagger.params.operadores_email.value,
-      operadores_loginmanual: req.swagger.params.operadores_loginmanual.value
+      operadores_password: req.swagger.params.operadores_loginmanual.value
     };
 
     // Call to service
+    console.log("log in ...");
+    console.log(driver);
 
+    driver
+    .findOne({ where: {email: params.operadores_email, password : params.operadores_password } })
+    .then(myoper => {
+      if (!myoper) {
+        res.status(200).send({
+          message: 'Operador Not Found'
+        });
+      }
+      else {
+        console.log(myoper);
+        res.status(200).send(myoper);
+      }
+    })
+    .catch(error => res.status(500).send(error));
+   
+
+    /*
     operadoresService.getOperadoresLogin(params)
         .then(function (response) {
             utils.writeJson(res, response);
@@ -114,7 +133,7 @@ function getOperadoresLogin(req, res) {
         .catch(function (response) {
             utils.writeJson(res, response);
     });
-   
+  */ 
    
   } catch (error) {
     controllerHelper.handleErrorResponse(MODULE_NAME, getOperadoresLogin.name, error, res);

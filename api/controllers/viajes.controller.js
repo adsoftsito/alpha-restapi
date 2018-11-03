@@ -118,10 +118,11 @@ function getAllViajes(req, res) {
       model: orderstatus
      
     }]*/
+
     include: [{ all: true, nested: true }]
       })
    .then((consoles) => {
-     console.log(consoles);
+     //console.log(consoles);
      res.status(200).send(consoles);
      //utils.writeJson(res, consoles);
    }, (error) => {
