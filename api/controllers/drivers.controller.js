@@ -1,11 +1,16 @@
 'use strict';
 
-var _ = require('lodash');
+//var _ = require('lodash');
+const _ = require('lodash');
+const util = require('util');	// Required in swagger sample controller
 
 var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var operadoresService = require('../services/operadores.service');
 var utils = require('../utils/writer');
+
+const { driver } = require('../models');	// Sequelize
+
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -20,25 +25,27 @@ const GS_CT_ERR_GAMESYSTEM_NOT_FOUND = 'Driver not found';
 const GS_CT_DELETED_SUCCESSFULLY = 'Driver deleted successfully';
 
 
-'use strict';
+//'use strict';
 
-var _ = require('lodash');
+//var _ = require('lodash');
 var shortid = require('shortid');
 
 
-const Sequelize = require('sequelize');
+//const Sequelize = require('sequelize');
 //database wide options
+/*
 var opts = {
   define: {
       //prevent sequelize from pluralizing table names
       freezeTableName: true
   }
 }
-
-const sequelize = new 
-Sequelize('postgres://adsoft:5i5i5i5i@35.237.69.58:5432/alphadriver', opts);
+*/
+//const sequelize = new 
+//Sequelize('postgres://adsoft:5i5i5i5i@35.237.69.58:5432/alphadriver', opts);
 //Sequelize('mysql://adsoft:5i5i5i5i@localhost:3306/er');
 
+/*
 sequelize
   .authenticate()
   .then(() => {
@@ -47,7 +54,8 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
+*/
+  /*
   const Operadores = sequelize.define('driver', {
     drivercode: {
       type: Sequelize.STRING
@@ -83,7 +91,7 @@ sequelize
   
   
     });
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
@@ -126,7 +134,9 @@ function getDrivers(req, res) {
 */
     // Call to service
     console.log("in ...");
-    Operadores.findAll({
+    console.log(driver);
+    
+    driver.findAll({
         /*include: [{
           model: orderstatus
          

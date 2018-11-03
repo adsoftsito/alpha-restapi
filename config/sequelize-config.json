@@ -1,0 +1,28 @@
+{
+  "development": {
+    "username": "adsoft",
+    "password": "5i5i5i5i",
+    "database": "alphadriver",
+    "host": "35.237.69.58",
+    "port": 5432,
+    "dialect": "postgres",
+    "freezeTableName": true
+  },
+  "test": {
+    "username": "adsoft",
+    "password": "5i5i5i5i",
+    "database": "alphadriver",
+    "host": "35.237.69.58",
+    "port": 5432,
+    "dialect": "postgres",
+    "freezeTableName": true
+  },
+  "production": {
+    "username": "adsoft",
+    "password": "5i5i5i5i",
+    "database": "alphadriver",
+    "host": "35.237.69.58",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}

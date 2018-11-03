@@ -1,11 +1,19 @@
 'use strict';
 
-var _ = require('lodash');
+const _ = require('lodash');
+const util = require('util');	// Required in swagger sample controller
+var shortid = require('shortid');
+
+
 
 var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var viajesService = require('../services/viajes.service');
 var utils = require('../utils/writer.js');
+
+const { order } = require('../models');	// Sequelize
+const { OrderStatus } = require('../models');	// Sequelize
+
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,14 +27,7 @@ const GS_CT_ERR_GAMESYSTEM_NOT_FOUND = 'Viaje not found';
 // Success Messages
 const GS_CT_DELETED_SUCCESSFULLY = 'Viaje deleted successfully';
 
-
-
-'use strict';
-
-var _ = require('lodash');
-var shortid = require('shortid');
-
-
+/*
 const Sequelize = require('sequelize');
 //database wide options
 var opts = {
@@ -49,7 +50,8 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-
+*/
+/*
   const order = sequelize.define('order', {
 	orderid: {
 	    type: Sequelize.INTEGER
@@ -67,7 +69,8 @@ sequelize
           type: Sequelize.INTEGER
   }
   });
-
+*/
+/*
   const orderstatus = sequelize.define('orderstatus', {
     orderstatusid: {
         type: Sequelize.INTEGER
@@ -82,7 +85,7 @@ sequelize
       constraints: false,
       as: 'orderstatus'
     });
-
+*/
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
@@ -108,13 +111,14 @@ function getAllViajes(req, res) {
             utils.writeJson(res, response);
     });
   */ 
-   
+   console.log("viajes...");
+   console.log(order);
    order.findAll({
     /*include: [{
       model: orderstatus
      
     }]*/
-     include: [{ all: true, nested: true }]
+    include: [{ all: true, nested: true }]
       })
    .then((consoles) => {
      console.log(consoles);
@@ -125,7 +129,7 @@ function getAllViajes(req, res) {
    });
 
   } catch (error) {
-    controllerHelper.handleErrorResponse(MODULE_NAME, getAllviajes.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getAllViajes.name, error, res);
   }
 }
 
