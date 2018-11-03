@@ -18,24 +18,8 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-/*
-  codigo:
-  type: integer
-nombre:
-  type: string
-apellidos:
-  type: string
-id_flota:
-  type: string
-tag:
-  type: string
-email:
-  type: string
-loginmanual:
-  type: string
-*/
 
-  const Operadores = sequelize.define('operadores', {
+  const Operadores = sequelize.define('driver', {
     codigo: {
       type: Sequelize.STRING
     },

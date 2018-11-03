@@ -20,15 +20,15 @@ produces:
   - application/json
 paths:
   /operadores:
-    x-swagger-router-controller: operadores.controller
+    x-swagger-router-controller: drivers.controller
     get:
       description: get the operadores list
-      operationId: getOperadores
-      parameters:
-        - name: name
-          in: query
-          type: string
-          required: false
+      operationId: getDrivers
+      #parameters:
+      #  - name: name
+      #    in: query
+      #    type: string
+      #    required: false
       #  - name: sort
       #    in: query
       #    type: string
@@ -440,22 +440,29 @@ definitions:
       id:
         type: number
         description: identifier
-      codigo: 
+      drivercode: 
         type: string
         description: codigo del operador
-      nombre:
+      name:
         type: string
         description: nombre del operador
-      apellidos:
+      lastname:
         type: string
-      id_flota:
+      license:
         type: string
-      tag:
+      licensetype:
+        type: string
+      licensedue:
+        type: string
+      companyid:
+        type: string
+      nfctag:
         type: string
       email:
         type: string
-      loginmanual:
+      password:
         type: string
+
 
         #  required:
   #    - id

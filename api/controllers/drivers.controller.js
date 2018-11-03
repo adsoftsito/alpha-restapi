@@ -5,19 +5,19 @@ var _ = require('lodash');
 var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var operadoresService = require('../services/operadores.service');
-var utils = require('../utils/writer.js');
+var utils = require('../utils/writer');
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
 
 // Module Name
-const MODULE_NAME = '[Operador Controller]';
+const MODULE_NAME = '[Drivers Controller]';
 
 // Error Messages
-const GS_CT_ERR_GAMESYSTEM_NOT_FOUND = 'Operador not found';
+const GS_CT_ERR_GAMESYSTEM_NOT_FOUND = 'Driver not found';
 
 // Success Messages
-const GS_CT_DELETED_SUCCESSFULLY = 'Operador deleted successfully';
+const GS_CT_DELETED_SUCCESSFULLY = 'Driver deleted successfully';
 
 
 'use strict';
@@ -27,9 +27,16 @@ var shortid = require('shortid');
 
 
 const Sequelize = require('sequelize');
+//database wide options
+var opts = {
+  define: {
+      //prevent sequelize from pluralizing table names
+      freezeTableName: true
+  }
+}
 
 const sequelize = new 
-Sequelize('postgres://adsoft:5i5i5i5i@35.237.69.58:5432/alphadriver');
+Sequelize('postgres://adsoft:5i5i5i5i@35.237.69.58:5432/alphadriver', opts);
 //Sequelize('mysql://adsoft:5i5i5i5i@localhost:3306/er');
 
 sequelize
@@ -42,25 +49,34 @@ sequelize
   });
 
   const Operadores = sequelize.define('driver', {
-    codigo: {
+    drivercode: {
       type: Sequelize.STRING
     },
-    nombre: {
+    name: {
       type: Sequelize.STRING
     },
-    apellidos: {
+    lastname: {
                   type: Sequelize.STRING
           },
-    id_flota: {
+    license: {
+            type: Sequelize.STRING
+    },
+    licensetype: {
+        type: Sequelize.STRING
+    },
+    licensedue: {
+        type: Sequelize.STRING
+    },
+    companyid: {
                   type: Sequelize.STRING
           },
-    tag: {
+    nfctag: {
                   type: Sequelize.STRING
           },
     email: {
       type: Sequelize.STRING
     },
-    loginmanual: {
+    password: {
       type: Sequelize.STRING
     }
   
@@ -98,17 +114,18 @@ function getOperadoresLogin(req, res) {
 }
 
 
-function getOperadores(req, res) {
+function getDrivers(req, res) {
 
   try {
     // Receiving parameters
+    /*
     var params = {
       name: req.swagger.params.name.value,
       sort: req.swagger.params.sort.value
     };
-
+*/
     // Call to service
-   
+    console.log("in ...");
     Operadores.findAll({
         /*include: [{
           model: orderstatus
@@ -116,9 +133,9 @@ function getOperadores(req, res) {
         }]
          include: [{ all: true, nested: true }]
     */})
-       .then((consoles) => {
-         console.log(consoles);
-         res.status(200).send(consoles);
+       .then((opers) => {
+         console.log(opers);
+         res.status(200).send(opers);
          //utils.writeJson(res, consoles);
        }, (error) => {
          res.status(500).send(error);
@@ -127,7 +144,7 @@ function getOperadores(req, res) {
     
    
   } catch (error) {
-    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadores.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getDrivers.name, error, res);
   }
 }
 
@@ -216,7 +233,7 @@ function updateOperador(req, res) {
 
 module.exports = {
   getOperadoresLogin,
-  getOperadores,
+  getDrivers,
   createOperador,
   getOperadorById,
   updateOperador,

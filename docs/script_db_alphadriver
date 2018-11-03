@@ -35,6 +35,9 @@ CREATE TABLE public.driver
   licensetype character varying(1),
   licensedue date, 
   companyid character varying(20) NOT NULL,  
+  nfctag   character varying(20) NOT NULL,  
+  email    character varying(50) NOT NULL,  
+  password character varying(20) NOT NULL,  
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
  CONSTRAINT driver_pkey PRIMARY KEY (drivercode)
@@ -48,10 +51,10 @@ ALTER TABLE public.driver
 */
 
 /*
- insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid) 
-   values ('op-01', 'adolfo', 'centeno', '010000002360078',  'B', '2020-10-21', 'hesa');
- insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid) 
-   values ('op-02', 'alejandro', 'reyes', '090000007770099',  'C', '2022-08-20', 'hesa');
+ insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
+   values ('op-01', 'adolfo', 'centeno', '010000002360078',  'B', '2020-10-21', 'hesa', '99988', 'adsoft@live.com.mx', '332211');
+ insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
+   values ('op-02', 'alejandro', 'reyes', '090000007770099',  'C', '2022-08-20', 'hesa', '998877', 'jr.adsoft@live.com.mx', '112233');
 */
 -- select * from driver
 
