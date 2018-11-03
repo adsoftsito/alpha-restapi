@@ -4,8 +4,6 @@ const _ = require('lodash');
 const util = require('util');	// Required in swagger sample controller
 var shortid = require('shortid');
 
-
-
 var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var viajesService = require('../services/viajes.service');
@@ -89,28 +87,31 @@ sequelize
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
+function getOrderbyId(req, res) {
+  //console.log("operadores.controller getOperadorById");
+  try {
 
-function getAllViajes(req, res) {
+    console.log(req.swagger.params.id.value);
+    var id = req.swagger.params.id.value;
+   
+    console.log("viajes by id...");
+    console.log(order);
+
+   order.findById(id).then(orders => {
+    console.log(orders);
+    res.status(200).send(orders);
+   })
+
+  } catch (error) {
+    console.log("Was an error");
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOrderbyId.name, error, res);
+  }
+}
+
+function getOrders(req, res) {
 
   try {
-    
-    // Receiving parameters
-    /*var params = {
-      operadores_email: req.swagger.params.operadores_email.value,
-      operadores_loginmanual: req.swagger.params.operadores_loginmanual.value
-    };*/
-
-    // Call to service
-/*
-    viajesService.getAllViajes()
-        .then(function (response) {
-            console.log(response);
-            utils.writeJson(res, response);
-        })
-        .catch(function (response) {
-            utils.writeJson(res, response);
-    });
-  */ 
+        
    console.log("viajes...");
    console.log(order);
    order.findAll({
@@ -130,13 +131,14 @@ function getAllViajes(req, res) {
    });
 
   } catch (error) {
-    controllerHelper.handleErrorResponse(MODULE_NAME, getAllViajes.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOrders.name, error, res);
   }
 }
 
 
 module.exports = {
-  getAllViajes,
+  getOrders,
+  getOrderbyId,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME
