@@ -1,4 +1,248 @@
 ﻿/*
+-- drop table truck
+
+CREATE TABLE public.truck
+(
+  id SERIAL NOT NULL,
+  trucknumber character varying(50), 
+  brand    character varying(40), 
+  model character varying(40), 
+  year  character varying(4),
+  plate character varying(20),
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT truck_pkey PRIMARY KEY (trucknumber)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+*/
+-- select * from truck 
+-- insert into truck(trucknumber, brand, model, year, plate) values ('TR-890', 'Freightliner', 'Cascadia', '2018', 'DW-821');
+-- insert into truck(trucknumber, brand, model, year, plate) values ('TR-910', 'Cummis', 'Cascadia', '2014', 'WW-987');
+
+/*
+
+-- drop table trailer
+
+CREATE TABLE public.trailer
+(
+  id SERIAL NOT NULL,
+  trailernumber character varying(50), 
+  trailertype   character varying(50), 
+  brand    character varying(40), 
+  model character varying(40), 
+  year  character varying(4),
+  plate character varying(20),
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT trailer_pkey PRIMARY KEY (trailernumber)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+*/
+-- select * from trailer 
+-- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-01', 'Remolque', 'Cummins', 'Cascadia', '2016', 'RE-821');
+-- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-02', 'Plana', 'Cummins', 'Cascadia', '2013', 'RE-999');
+-- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-03', 'Pipa', 'Freightliner', 'Cascadia', '2012', 'RE-111');
+
+
+-- drop table dolly
+/*
+CREATE TABLE public.dolly
+(
+  id SERIAL NOT NULL,
+  dollynumber character varying(50), 
+  brand    character varying(40), 
+  model character varying(40), 
+  year  character varying(4),
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT dolly_pkey PRIMARY KEY (dollynumber)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+*/
+-- select * from dolly 
+-- insert into dolly(dollynumber, brand, model, year) values ('D-01', 'Cummins', 'Cascadia', '2018');
+-- insert into dolly(dollynumber, brand, model, year) values ('D-02', 'Freighliner', 'Cascadia', '2016');
+-- insert into dolly(dollynumber, brand, model, year) values ('D-03', 'Cummins', 'Cascadia', '2014');
+
+
+-- drop table customer
+/*
+CREATE TABLE public.customer
+(
+  id SERIAL NOT NULL,
+  customerid character varying(20) NOT NULL,
+  companyid character varying(20) NOT NULL,
+  customername character varying(50), 
+  address    character varying(100), 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT customer_pkey PRIMARY KEY (customerid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.driver
+  OWNER TO adsoft;
+
+--alter table public.customer add constraint customer_customerid_fkey foreign key (companyid) references public.company(companyid) 
+
+*/
+-- select * from customer
+-- insert into customer(customerid, companyid, customername, address) values ('ING-01', 'hesa', 'Ingenio San Miguelito', 'Col. Patrona, Cordoba, Ver');
+-- insert into customer(customerid, companyid, customername, address) values ('SIV-01', 'hesa', 'Sivesa', 'Col. Centro, Orizaba, Ver');
+-- insert into customer(customerid, companyid, customername, address) values ('KIM-01', 'hesa', 'Kimberly Clark', 'Col Centro, Ixtac, Ver');
+
+
+-- drop table company_place_type
+/*
+CREATE TABLE public.company_place_type
+(
+  id SERIAL NOT NULL,
+  placetypeid character varying(20) NOT NULL,
+  placetypedescription character varying(20) NOT NULL,
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT company_place_type_pkey PRIMARY KEY (placetypeid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.company_place_type
+  OWNER TO adsoft;
+  
+-- select * from company_place_type
+-- select * from company_place
+-- insert into company_place_type(placetypeid, placetypedescription) values ('0', 'origenes/destinos')
+-- insert into company_place_type(placetypeid, placetypedescription) values ('1', 'casetas')
+-- insert into company_place_type(placetypeid, placetypedescription) values ('2', 'exceso de velocidad')
+-- insert into company_place_type(placetypeid, placetypedescription) values ('3', 'paradas autorizadas')
+-- insert into company_place_type(placetypeid, placetypedescription) values ('4', 'zonas de riesgo')
+
+*/
+
+
+-- drop table company_place
+/*
+CREATE TABLE public.company_place
+(
+  id SERIAL NOT NULL,
+  placeid character varying(20) NOT NULL,
+  companyid character varying(20) NOT NULL,
+  placedescription character varying(20) NOT NULL,
+  placeaddress character varying(200) NOT NULL,
+  placemessage  character varying(300), 
+  placetype     character varying(20), 
+  placelat      numeric, 
+  placelng      numeric,   
+  placeradius   numeric, 
+  placepolygon  character varying(1000),
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT company_place_pkey PRIMARY KEY (placeid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.company_place
+  OWNER TO adsoft;
+  
+--alter table public.company_place add constraint company_place_placetype_fkey foreign key (placetype) references public.company_place_type(placetypeid) 
+--alter table public.company_place add constraint company_place_companyid_fkey foreign key (companyid) references public.company(companyid) 
+
+*/
+
+-- select * from company_place
+/*
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('pol', 'hesa', 'poliforum', 'pte 7 100, orizaba, ver', 'inicio de viaje, ajustar cinturon', '0', 20.987665, -95.464673, 100, '[{}]')
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('cas', 'hesa', 'caseta fortin', 'km 280 fortin ver', 'caseta proxima, reducir velocidad', '1', 20.987665, -95.464673, 500, '[{}]')
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('par', 'hesa', 'parada autorizada', 'col barrio nuevo, orizaba ver', 'parada autorizada, comedor 1', '2', 20.987665, -95.464673, 400, '[{}]')
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('motum', 'hesa', 'tecnomotum sa de cv', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]')
+
+*/
+
+-- drop table routes
+/*
+CREATE TABLE public.route
+(
+  id SERIAL NOT NULL,
+  routeid character varying(20) NOT NULL,
+  companyid character varying(20) NOT NULL,
+  customerid character varying(20) NOT NULL,
+  placesource  character varying(20), 
+  placetarget  character varying(20), 
+  
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT route_pkey PRIMARY KEY (routeid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.route
+  OWNER TO adsoft;
+-- select * from customer
+--alter table public.route add constraint route_companyid_fkey foreign key (companyid) references public.company(companyid) 
+--alter table public.route add constraint route_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+
+--alter table public.route add constraint route_placesource_fkey foreign key (placesource) references public.company_place(placeid) 
+--alter table public.route add constraint route_placetarget_fkey foreign key (placetarget) references public.company_place(placeid) 
+
+--select * from company_places
+--select * from route
+insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r01','hesa', 'ING-01', 'pol','motum') 
+insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r02','hesa', 'KIM-01', 'motum','pol') 
+
+*/
+
+
+-- drop table route_detail
+/*
+CREATE TABLE public.route_detail
+(
+  id SERIAL NOT NULL,
+  routedetailid character varying(20) NOT NULL,
+  routeid character varying(20) NOT NULL,
+  placeid      character varying(20), 
+  status       character varying(1), 
+  position        integer,
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT route_detail_pkey PRIMARY KEY (routedetailid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.route_detail	
+  OWNER TO adsoft;
+-- select * from route_detail
+--alter table public.route_detail add constraint routedetail_routeid_fkey foreign key (routeid) references public.route(routeid) 
+--alter table public.route_detail add constraint routedetail_placeid_fkey foreign key (placeid) references public.company_place(placeid) 
+-- select * from company_place
+--insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-01','r01', 'pol', '1', 1)
+--insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-02','r01', 'cas', '1', 2)
+--insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-03','r01', 'par', '1', 3)
+--insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-04','r01', 'motum', '1', 4)
+
+/*
 -- drop table company
 
 CREATE TABLE public.company
@@ -21,14 +265,14 @@ ALTER TABLE public.driver
 */
 
 -- insert into company(companyid, companyname, username, password) values ('hesa', 'fletes hesa sa de cv', 'acenteno', '332211');
-
+-- 	
 /*
 -- drop table driver
 
 CREATE TABLE public.driver
 (
   id SERIAL NOT NULL,
-  drivercode character varying(20) NOT NULL,
+  drivercode character varying(20) NOT NULL,	
   name character varying(50), 
   lastname character varying(50), 
   license character varying(50), 
@@ -59,6 +303,34 @@ ALTER TABLE public.driver
 -- select * from driver
 
 /*
+
+CREATE TABLE public.orderstatusadmin
+(
+  id SERIAL NOT NULL,
+  orderstatusadminid integer NOT NULL,
+  description character varying(100), 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT orderstatusadmin_orderstatusadminid PRIMARY KEY (orderstatusadminid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.orderstatusadmin
+  OWNER TO adsoft;
+
+*/
+
+-- insert into orderstatusadmin(orderstatusadminid, description) values (1, 'asignado');
+-- insert into orderstatusadmin(orderstatusadminid, description) values (2, 'iniciado');
+-- insert into orderstatusadmin(orderstatusadminid, description) values (3, 'en transito');
+-- insert into orderstatusadmin(orderstatusadminid, description) values (4, 'finalizado');
+
+-- select * from orderstatusadmin
+
+
+
+/*
 -- drop table orderstatus
 
 CREATE TABLE public.orderstatus
@@ -73,7 +345,7 @@ CREATE TABLE public.orderstatus
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.order
+ALTER TABLE public.orderstatus
   OWNER TO adsoft;
 
 */
@@ -88,15 +360,16 @@ CREATE TABLE public.order
 (
   id SERIAL NOT NULL,
   orderid integer NOT NULL,
-  description character varying(100),
-  origin character varying(100),
-  target character varying(100),
+  driverid character varying(20) NOT NULL,
+  truckid character varying(20) NOT NULL,
+  trailerid1 character varying(20) NOT NULL,
+  dollyid    character varying(20)  NULL,
+  trailerid2 character varying(20)  NULL,
+  routeid character varying(20) NOT NULL,
+  orderadminid integer not null,  
   orderstatusid integer not null,
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
-  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
-
-
-  
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
   CONSTRAINT order_pkey PRIMARY KEY (orderid)
 )
 WITH (
@@ -106,9 +379,24 @@ ALTER TABLE public.order
   OWNER TO adsoft;
 
 */
+-- select * from truck;
+--alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(drivercode) 
+--alter table public.order add constraint order_truckid_fkey foreign key (truckid) references public.truck(trucknumber) 
 
+--alter table public.order add constraint order_trailerid1_fkey foreign key (trailerid1) references public.trailer(trailernumber) 
+--alter table public.order add constraint order_dollyid_fkey foreign key (dollyid) references public.dolly(dollynumber) 
+--alter table public.order add constraint order_trailerid2_fkey foreign key (trailerid2) references public.trailer(trailernumber) 
+
+--alter table public.order add constraint order_routeid_fkey foreign key (routeid) references public.route(routeid) 
+
+
+--alter table public.order add constraint order_orderadminstatusid_fkey foreign key (orderadminid) references public.orderstatusadmin(orderstatusadminid) 
 --alter table public.order add constraint order_orderstatusid_fkey foreign key (orderstatusid) references public.orderstatus(orderstatusid) 
+
 --drop table public.order;
 --select * from public.order;
-
---insert into public.order(orderid, description, origin, target, orderstatusid) values (2, 'order 2', 'mex', 'tij', 1);
+--select * from order
+/* 
+ insert into public.order(orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
+ values (1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+ */

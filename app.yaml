@@ -20,5 +20,5 @@ endpoints_api_service:
   # 'gcloud endpoints services deploy openapi-appengine.yaml' command.
   name: eco-seeker-213615.appspot.com
 # Copyright 2015-2016, Google, Inc.
-  config_id: 2018-10-22r0
+  config_id: 2018-11-03r0
 # [END configuration]
