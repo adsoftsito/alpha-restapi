@@ -363,7 +363,6 @@ definitions:
 
     xml:
       name: Operador
-
       
   Viaje:
     type: object
@@ -373,12 +372,20 @@ definitions:
 #        format: int64
       orderid:
         type: integer
-      description:
+      driverid:
         type: string
-      origin:
+      truckid:
         type: string
-      target:
+      trailerid1:
         type: string
+      dollyid:
+        type: string
+      trailerid2:
+        type: string
+      routeid:
+        type: string
+      orderadminid:
+        type: integer
       orderstatusid:
         type: integer
 #    example:
@@ -442,7 +449,7 @@ definitions:
       id:
         type: number
         description: identifier
-      drivercode: 
+      driverid: 
         type: string
         description: codigo del operador
       name:

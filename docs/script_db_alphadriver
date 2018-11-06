@@ -272,7 +272,7 @@ ALTER TABLE public.driver
 CREATE TABLE public.driver
 (
   id SERIAL NOT NULL,
-  drivercode character varying(20) NOT NULL,	
+  driverid character varying(20) NOT NULL,	
   name character varying(50), 
   lastname character varying(50), 
   license character varying(50), 
@@ -284,7 +284,7 @@ CREATE TABLE public.driver
   password character varying(20) NOT NULL,  
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
- CONSTRAINT driver_pkey PRIMARY KEY (drivercode)
+ CONSTRAINT driver_pkey PRIMARY KEY (driverid)
 )
 WITH (
   OIDS=FALSE
@@ -295,9 +295,9 @@ ALTER TABLE public.driver
 */
 
 /*
- insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
+ insert into driver(driverid, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
    values ('op-01', 'adolfo', 'centeno', '010000002360078',  'B', '2020-10-21', 'hesa', '99988', 'adsoft@live.com.mx', '332211');
- insert into driver(drivercode, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
+ insert into driver(driverid, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 
    values ('op-02', 'alejandro', 'reyes', '090000007770099',  'C', '2022-08-20', 'hesa', '998877', 'jr.adsoft@live.com.mx', '112233');
 */
 -- select * from driver
@@ -380,8 +380,8 @@ ALTER TABLE public.order
 
 */
 -- select * from truck;
---alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(drivercode) 
 --alter table public.order add constraint order_truckid_fkey foreign key (truckid) references public.truck(trucknumber) 
+--alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(driverid) 
 
 --alter table public.order add constraint order_trailerid1_fkey foreign key (trailerid1) references public.trailer(trailernumber) 
 --alter table public.order add constraint order_dollyid_fkey foreign key (dollyid) references public.dolly(dollynumber) 
@@ -399,4 +399,7 @@ ALTER TABLE public.order
 /* 
  insert into public.order(orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
  values (1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+insert into public.order(orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
+ values (2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+ 
  */

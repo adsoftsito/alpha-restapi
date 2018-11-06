@@ -5,41 +5,72 @@ module.exports = (sequelize, DataTypes) => {
         orderid: {
             type: DataTypes.INTEGER
         },
-        description: {
+        driverid: {
               type: DataTypes.STRING
         },
-        origin: {
+        truckid: {
                     type: DataTypes.STRING
             },
-        target: {
+        trailerid1: {
                     type: DataTypes.STRING
             },
-      orderstatusid: {
+        dollyid: {
+              type: DataTypes.STRING
+        },
+        trailerid2: {
+          type: DataTypes.STRING
+        },
+        routeid: {
+          type: DataTypes.STRING
+        }, 
+        orderadminid: {
+          type: DataTypes.STRING
+        },
+        orderstatusid: {
               type: DataTypes.INTEGER
-      }
+        }
               
  }, {
     freezeTableName: true // Model tableName will be the same as the model name
   });
  /*
+
+  orderid integer NOT NULL,
+  driverid character varying(20) NOT NULL,
+  truckid character varying(20) NOT NULL,
+  trailerid1 character varying(20) NOT NULL,
+  dollyid    character varying(20)  NULL,
+  trailerid2 character varying(20)  NULL,
+  routeid character varying(20) NOT NULL,
+  orderadminid integer not null,  
+  orderstatusid integer not null,
   order.belongsTo(orderstatus, {
     foreignKey: 'orderstatusid',
     constraints: false,
     as: 'orderstatus'
   });*/
+  
   order.associate = function(models) {
+
     order.belongsTo(models.orderstatus, {
       foreignKey: 'orderstatusid',
       onDelete: 'CASCADE'
     });
+    
+    order.belongsTo(models.driver, {
+      foreignKey: 'driverid',
+       
+      onDelete: 'CASCADE'
+    });
+
+    order.belongsTo(models.truck, {
+      foreignKey: 'truckid',
+       
+      onDelete: 'CASCADE'
+    });
   };
 
-  /*Console.associate = function(models) {
-    Console.hasMany(models.Game, {
-      foreignKey: 'consoleId',
-      as: 'games'
-    });
-  };*/
+  
   console.log(order);
   return order;
 };

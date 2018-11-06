@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
  
     const orderstatus = sequelize.define('orderstatus', {
         orderstatusid: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            primaryKey: true
         },
         description: {
             type: DataTypes.STRING

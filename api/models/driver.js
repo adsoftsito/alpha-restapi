@@ -3,8 +3,10 @@ module.exports = (sequelize, DataTypes) => {
  
     const driver = sequelize.define('driver', {
 
-        drivercode: {
-            type: DataTypes.STRING
+          driverid: {
+            type: DataTypes.STRING,
+            primaryKey: true
+
           },
           name: {
             type: DataTypes.STRING
@@ -38,12 +40,13 @@ module.exports = (sequelize, DataTypes) => {
     freezeTableName: true // Model tableName will be the same as the model name
   });
  
-  /*Console.associate = function(models) {
-    Console.hasMany(models.Game, {
-      foreignKey: 'consoleId',
-      as: 'games'
+  driver.associate = function(models) {
+ 
+ /*   driver.hasMany(models.order, {
+      foreignKey: 'driverid'
     });
-  };*/
+*/
+  };
   console.log(driver);
   return driver;
 };
