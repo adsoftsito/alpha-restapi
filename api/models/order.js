@@ -52,10 +52,6 @@ module.exports = (sequelize, DataTypes) => {
   
   order.associate = function(models) {
 
-    order.belongsTo(models.orderstatus, {
-      foreignKey: 'orderstatusid',
-      onDelete: 'CASCADE'
-    });
     
     order.belongsTo(models.driver, {
       foreignKey: 'driverid',
@@ -68,6 +64,36 @@ module.exports = (sequelize, DataTypes) => {
        
       onDelete: 'CASCADE'
     });
+
+    order.belongsTo(models.trailer, {
+      foreignKey: 'trailerid1',
+       
+      as: 'remolque1'
+    });
+
+    order.belongsTo(models.dolly, {
+      foreignKey: 'dollyid',
+       
+      as: 'dolly'
+    });
+
+    order.belongsTo(models.trailer, {
+      foreignKey: 'trailerid2',
+       
+      as: 'remolque2'
+    });
+
+    order.belongsTo(models.orderstatusadmin, {
+      foreignKey: 'orderadminid',
+      as: 'orderstatusadmin'
+    });
+
+
+    order.belongsTo(models.orderstatus, {
+      foreignKey: 'orderstatusid',
+      as: 'orderstatus'
+    });
+
   };
 
   
