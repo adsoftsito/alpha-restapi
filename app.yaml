@@ -19,6 +19,7 @@ endpoints_api_service:
   # The following values are to be replaced by information from the output of
   # 'gcloud endpoints services deploy openapi-appengine.yaml' command.
   name: eco-seeker-213615.appspot.com
-# Copyright 2015-2016, Google, Inc.
-  config_id: 2018-11-03r0
+  #rollout_strategy: managed 
+  # Copyright 2015-2016, Google, 
+  config_id: 2018-11-07r1
 # [END configuration]

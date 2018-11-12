@@ -311,6 +311,59 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Viaje not found
+  /trucks:
+    x-swagger-router-controller: trucks.controller
+
+    get:
+      tags:
+      - trucks
+      description: "Obtiene la lista de trucks"
+      operationId: "getTrucks"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetTruckListResponse"
+        404:
+          description: "Trucks not found"
+ 
+  /trailers:
+    x-swagger-router-controller: trailers.controller
+
+    get:
+      tags:
+      - trailers
+      description: "Obtiene la lista de trailers"
+      operationId: "getTrailers"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetTrailerListResponse"
+        404:
+          description: "Trailers not found"
+
+  /dollys:
+    x-swagger-router-controller: dollys.controller
+
+    get:
+      tags:
+      - dollys
+      description: "Obtiene la lista de dollys"
+      operationId: "getDollys"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetDollyListResponse"
+        404:
+          description: "Dollys not found"
 
 
 
@@ -363,7 +416,119 @@ definitions:
 
     xml:
       name: Operador
+ 
+  Trailer:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+      trailernumber:
+        type: string
+
+      trailertype:
+        type: string
+ 
+      brand:
+        type: string
+      model:
+        type: string
+      year:
+        type: string
+      plate:
+        type: string
       
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetTrailerListResponse:
+    required:
+      - trailers
+    properties:
+      trailers:
+        type: array
+        items:
+          $ref: "#/definitions/Trailer"
+
+
+  Dolly:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+      dollynumber:
+        type: string
+
+      brand:
+        type: string
+      model:
+        type: string
+      year:
+        type: string
+      
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetDollyListResponse:
+    required:
+      - dollys
+    properties:
+      dollys:
+        type: array
+        items:
+          $ref: "#/definitions/Dolly"
+
+
+
+  Truck:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+      trucknumber:
+        type: string
+      brand:
+        type: string
+      model:
+        type: string
+      year:
+        type: string
+      plate:
+        type: string
+      
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetTruckListResponse:
+    required:
+      - trucks
+    properties:
+      trucks:
+        type: array
+        items:
+          $ref: "#/definitions/Truck"
+
+
   Viaje:
     type: object
     properties:

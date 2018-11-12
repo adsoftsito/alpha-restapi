@@ -93,7 +93,7 @@ CREATE TABLE public.customer
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.driver
+ALTER TABLE public.customer
   OWNER TO adsoft;
 
 --alter table public.customer add constraint customer_customerid_fkey foreign key (companyid) references public.company(companyid) 
@@ -359,6 +359,8 @@ ALTER TABLE public.orderstatus
 CREATE TABLE public.order
 (
   id SERIAL NOT NULL,
+	  companyid  character varying(20) NOT NULL,
+	  customerid character varying(20) NOT NULL,
   orderid integer NOT NULL,
   driverid character varying(20) NOT NULL,
   truckid character varying(20) NOT NULL,
@@ -370,7 +372,7 @@ CREATE TABLE public.order
   orderstatusid integer not null,
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
-  CONSTRAINT order_pkey PRIMARY KEY (orderid)
+  CONSTRAINT order_pkey PRIMARY KEY (companyid, customerid, orderid)
 )
 WITH (
   OIDS=FALSE
@@ -380,6 +382,9 @@ ALTER TABLE public.order
 
 */
 -- select * from truck;
+--alter table public.order add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid) 
+--alter table public.order add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+
 --alter table public.order add constraint order_truckid_fkey foreign key (truckid) references public.truck(trucknumber) 
 --alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(driverid) 
 
@@ -395,11 +400,159 @@ ALTER TABLE public.order
 
 --drop table public.order;
 --select * from public.order;
---select * from order
+--select * from public.order
 /* 
- insert into public.order(orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
- values (1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
-insert into public.order(orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
- values (2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+ insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
+ values ('hesa', 'ING-01', 1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
+ values ('hesa', 'ING-01', 2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
  
  */
+
+-- drop table public.order_detail
+
+-- select * from public.order
+-- select * from public.route
+-- select * from public.route_detail
+-- select * from public.order_detail
+/*
+CREATE TABLE public.order_detail
+(
+  id SERIAL NOT NULL,
+
+  companyid  character varying(20) NOT NULL,
+  customerid character varying(20) NOT NULL,
+  orderid integer NOT NULL,
+  orderdetailid integer NOT NULL,
+
+  routedetailid character varying(20) NOT NULL,
+  orderdetaildescription character varying(200) NOT NULL,
+  orderdetailmessage character varying(200) NOT NULL,
+
+  orderdetailarrivedate date NOT NULL,
+  orderdetailactivity character varying(100) NOT NULL,
+  orderdetailproductid character varying(30) NOT NULL,
+  orderdetailproductdescription  character varying(100) NOT NULL,
+  orderdetailproductquantity    numeric,
+  orderdetailproductunitid        numeric,
+  orderdetailproductunitdescription character varying(50) NOT NULL,
+  orderdetailstatus character varying(1) NOT NULL,
+
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
+  CONSTRAINT order_detail_pkey PRIMARY KEY (companyid, customerid, orderid, orderdetailid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.order_detail
+  OWNER TO adsoft;
+
+*/
+-- select * from truck;
+
+--alter table public.order_detail add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid) 
+--alter table public.order_detail add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+
+--alter table public.order_detail add constraint order_detail_orderid_fkey foreign key (companyid, customerid, orderid) references public.order(companyid, customerid, orderid) 
+--alter table public.order_detail add constraint order_detail_routedetailid_fkey foreign key (routedetailid) references public.route_detail(routedetailid) 
+/*
+alter table public.order_detail add constraint order_detail_orderdetailproductid_fkey foreign key (companyid, customerid, orderdetailproductid)
+ references public.customer_product(companyid, customerid, productid) 
+*/
+/*
+alter table public.order_detail add constraint order_detail_ordetailproductunitid_fkey foreign key (orderdetailproductunitid) 
+references public.product_unit(productunitid) 
+*/
+-- select * from public.order
+-- select * from order_detail
+-- select * from customer_product
+-- drop table product_unit
+select * from route_detail
+select * from company_place
+select * from customer_product
+select * from order_detail
+/*
+ insert into public.order_detail(
+  companyid,
+  customerid,
+  orderid,
+  orderdetailid,
+  
+  routedetailid,
+  orderdetaildescription,
+  orderdetailmessage,
+  orderdetailarrivedate,
+  orderdetailactivity,
+  
+  orderdetailproductid,
+  orderdetailproductdescription,
+  orderdetailproductquantity,
+  orderdetailproductunitid,
+  orderdetailproductunitdescription,
+  orderdetailstatus) values ('hesa', 'ING-01', 1, 1, 
+
+  'r01-01', 'poliforum', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
+     'p-01', 'azucar', 100, 1, 'saco', '1');
+*/
+
+/*
+CREATE TABLE public.product_unit
+(
+  id SERIAL NOT NULL,
+  productunitid numeric NOT NULL,
+  productunitdescription character varying(20) NOT NULL,
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT product_unit_pkey PRIMARY KEY (productunitid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.product_unit
+  OWNER TO adsoft;
+
+-- insert into product_unit(productunitid, productunitdescription) values (1, 'SACO');
+-- insert into product_unit(productunitid, productunitdescription) values (2, 'TON');
+-- insert into product_unit(productunitid, productunitdescription) values (3, 'CAJA');
+
+/*
+CREATE TABLE public.customer_product
+(
+  id SERIAL NOT NULL,
+  companyid character varying(20) NOT NULL,
+  customerid character varying(20) NOT NULL,
+  productid character varying(20) NOT NULL,
+  productdescription character varying(100), 
+  productunitid      numeric, 
+  productunitdescription    character varying(50), 
+  productprice       numeric, 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT customer_product_pkey PRIMARY KEY (companyid, customerid, productid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.customer_product
+  OWNER TO adsoft;
+
+--alter table public.customer_product add constraint customer_product_companyid_fkey foreign key (companyid) references public.company(companyid) 
+--alter table public.customer_product add constraint customer_product_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+--alter table public.customer_product add constraint customer_product_productunitid_fkey foreign key (productunitid) references public.product_unit(productunitid) 
+-- delete from customer_product
+select * from product_unit
+-- 
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-01', 'azucar', 1, 'saco', 1000);
+
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-02', 'frijol', 2, 'ton', 5000);
+
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-03', 'huevo', 3, 'caja', 1000);
+
+--
+*/
+
+select * from company

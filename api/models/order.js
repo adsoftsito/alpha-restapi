@@ -2,6 +2,12 @@
 module.exports = (sequelize, DataTypes) => {
  
     const order = sequelize.define('order', {
+        companyid: {
+          type: DataTypes.STRING
+        },
+        customerid: {
+          type: DataTypes.STRING
+        },
         orderid: {
             type: DataTypes.INTEGER
         },
@@ -83,6 +89,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'remolque2'
     });
 
+    order.belongsTo(models.route, {
+      foreignKey: 'routeid',
+      as: 'route'
+    });
+
     order.belongsTo(models.orderstatusadmin, {
       foreignKey: 'orderadminid',
       as: 'orderstatusadmin'
@@ -94,6 +105,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'orderstatus'
     });
 
+ 
   };
 
   
