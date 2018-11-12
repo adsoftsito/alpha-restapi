@@ -136,14 +136,16 @@ function getTrailers(req, res) {
 function getTrailerById(req, res) {
     try {
   
-      console.log(req.swagger.params.id.value);
-      var id = req.swagger.params.id.value;
-     
-      console.log("trailer by id...");
-      console.log(trailer);
-  
-      trailer.findById(id,
-        { 
+    // Receiving parameters
+    var params = {
+      idPar: req.swagger.params.idPar.value,
+    };
+
+    console.log("trailer by id..." + params.idPar);
+    console.log(trailer);
+
+    trailer.findOne({ where: {trailernumber: params.idPar}},
+       { 
           include: [{ all: true, nested: true }]
         }
       ).then(orders => {

@@ -136,17 +136,16 @@ function getDollys(req, res) {
 function getDollyById(req, res) {
   try {
 
-    console.log(req.swagger.params.id.value);
-    var id = req.swagger.params.id.value;
-   
-    console.log("dolly by id...");
+    // Receiving parameters
+    var params = {
+      idPar: req.swagger.params.idPar.value,
+    };
+
+    console.log("dolly by id..." + params.idPar);
     console.log(dolly);
 
-   dolly.findById(id,
-      { 
-        include: [{ all: true, nested: true }]
-      }
-    ).then(orders => {
+   dolly.findOne({ where: {dollynumber: params.idPar}})
+   .then(orders => {
     console.log(orders);
     res.status(200).send(orders);
    })

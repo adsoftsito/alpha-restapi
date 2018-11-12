@@ -180,14 +180,16 @@ function getDrivers(req, res) {
 function getDriverById(req, res) {
     try {
   
-      console.log(req.swagger.params.id.value);
-      var id = req.swagger.params.id.value;
-     
-      console.log("driver by id...");
-      console.log(dolly);
-  
-     driver.findById(id,
-        { 
+    // Receiving parameters
+    var params = {
+      idPar: req.swagger.params.idPar.value,
+    };
+
+    console.log("driver by id..." + params.idPar);
+    console.log(driver);
+
+    driver.findOne({ where: {driverid: params.idPar}},
+       { 
           include: [{ all: true, nested: true }]
         }
       ).then(orders => {

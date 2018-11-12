@@ -134,19 +134,22 @@ function getTrucks(req, res) {
 }
 
 function getTruckById(req, res) {
-  try {
 
-    console.log(req.swagger.params.id.value);
-    var id = req.swagger.params.id.value;
-   
-    console.log("truck by id...");
-    console.log(truck);
-
-    truck.findById(id,
-      { 
-        include: [{ all: true, nested: true }]
-      }
-    ).then(orders => {
+    try {
+  
+      // Receiving parameters
+      var params = {
+        idPar: req.swagger.params.idPar.value,
+      };
+  
+      console.log("truck by id..." + params.idPar);
+      console.log(truck);
+  
+      truck.findOne({ where: {trucknumber: params.idPar}},
+         { 
+            include: [{ all: true, nested: true }]
+          }
+        ).then(orders => {
     console.log(orders);
     res.status(200).send(orders);
    })
