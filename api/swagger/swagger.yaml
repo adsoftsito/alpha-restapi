@@ -3,8 +3,8 @@ info:
   version: "0.0.1"
   title: Game Collector App
 # during dev, should point to your local machine
-host: localhost:10010
-#host: eco-seeker-213615.appspot.com
+#host: localhost:10010
+host: eco-seeker-213615.appspot.com
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -365,6 +365,51 @@ paths:
         404:
           description: "Dollys not found"
 
+  '/dollys/{id}':
+    x-swagger-router-controller: dollys.controller
+
+    get:
+      tags:
+        - dollys
+      summary: Find dolly by ID
+      description: Returns a single Dolly
+      operationId: getDollyById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of viaje to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Dolly'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Dolly not found
+
+  /rutas:
+    x-swagger-router-controller: routes.controller
+
+    get:
+      tags:
+      - rutas
+      description: "Obtiene la lista de rutas"
+      operationId: "getRoutes"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/GetRouteListResponse"
+        404:
+          description: "Routes not found"
 
 
   /swagger:
@@ -416,7 +461,45 @@ definitions:
 
     xml:
       name: Operador
+
+  Route:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+      routeid:
+        type: string
+
+      companyid:
+        type: string
  
+      customerid:
+        type: string
+      placesource:
+        type: string
+      placetarget:
+        type: string
+      
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetRouteListResponse:
+    required:
+      - routes
+    properties:
+      routes:
+        type: array
+        items:
+          $ref: "#/definitions/Route"
+      
+
   Trailer:
     type: object
     properties:
@@ -460,9 +543,9 @@ definitions:
   Dolly:
     type: object
     properties:
-#      id:
-#        type: integer
-#        format: int64
+      id:
+        type: integer
+        format: int64
       dollynumber:
         type: string
 
@@ -546,6 +629,24 @@ definitions:
       dollyid:
         type: string
       trailerid2:
+        type: string
+      source:
+        type: string      
+      sourceaddr:
+        type: string      
+      target: 
+        type: string      
+      targetaddr:
+        type: string      
+      km: 
+        type: string      
+      lt: 
+        type: string      
+      km_lt: 
+        type: string      
+      price_lt:
+        type: string      
+      cost:
         type: string
       routeid:
         type: string

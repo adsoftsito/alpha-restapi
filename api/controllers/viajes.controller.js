@@ -97,7 +97,11 @@ function getOrderbyId(req, res) {
     console.log("viajes by id...");
     console.log(order);
 
-   order.findById(id).then(orders => {
+   order.findById(id,
+      { 
+        include: [{ all: true, nested: true }]
+      }
+    ).then(orders => {
     console.log(orders);
     res.status(200).send(orders);
    })

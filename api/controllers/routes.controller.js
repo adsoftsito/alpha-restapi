@@ -9,7 +9,7 @@ var messageHelper = require('../helpers/message.helper');
 var operadoresService = require('../services/operadores.service');
 var utils = require('../utils/writer');
 
-const { dolly } = require('../models');	// Sequelize
+const { route } = require('../models');	// Sequelize
 
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
@@ -97,7 +97,7 @@ sequelize
 ////////////////////////////////////////////////////////////////////////////////
 
 
-function getDollys(req, res) {
+function getRoutes(req, res) {
 
   try {
     // Receiving parameters
@@ -109,14 +109,14 @@ function getDollys(req, res) {
 */
     // Call to service
     console.log("in ...");
-    console.log(dolly);
+    console.log(route);
     
-    dolly.findAll({
+    route.findAll({
         /*include: [{
           model: orderstatus
          
         }]*/
-         include: [{ all: true, nested: true }]
+         include: [{ all: true, nested: false }]
     })
        .then((opers) => {
          console.log(opers);
@@ -129,31 +129,28 @@ function getDollys(req, res) {
     
    
   } catch (error) {
-    controllerHelper.handleErrorResponse(MODULE_NAME, getDollys.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getRoutes.name, error, res);
   }
 }
 
-function getDollyById(req, res) {
+function getTruckById(req, res) {
+  console.log("operadores.controller getOperadorById");
   try {
-
     console.log(req.swagger.params.id.value);
-    var id = req.swagger.params.id.value;
-   
-    console.log("dolly by id...");
-    console.log(dolly);
 
-   dolly.findById(id,
-      { 
-        include: [{ all: true, nested: true }]
-      }
-    ).then(orders => {
-    console.log(orders);
-    res.status(200).send(orders);
-   })
-
+    operadorService.getOperadorById(req.swagger.params.id.value)
+      .then(function (response) {
+        console.log("Good response: " + response);
+        utils.writeJson(res, response);
+      })
+      .catch(function (response) {
+        console.log("Bad response: " + response);
+        utils.writeJson(res, response);
+      });
+    console.log("Success");
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getDollyById.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadorById.name, error, res);
   }
 }
 
@@ -220,8 +217,8 @@ function updateOperador(req, res) {
 }
 
 module.exports = {
-  getDollys,
-  getDollyById,
+  getRoutes,
+  getTruckById,
   updateOperador,
   deleteOperador,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,

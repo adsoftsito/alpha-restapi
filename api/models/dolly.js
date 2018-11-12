@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
  
     const dolly = sequelize.define('dolly', {
 
+      id: {
+        type: DataTypes.INTEGER,
+      },
           dollynumber: {
             type: DataTypes.STRING,
             primaryKey: true

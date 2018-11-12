@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
 
     */
     const trailer = sequelize.define('trailer', {
+      id: {
+        type: DataTypes.INTEGER,
+      },
 
           trailernumber: {
             type: DataTypes.STRING,

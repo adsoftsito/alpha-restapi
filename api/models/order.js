@@ -26,6 +26,36 @@ module.exports = (sequelize, DataTypes) => {
         trailerid2: {
           type: DataTypes.STRING
         },
+/* ,  ,  , ,
+ km, lt, km_lt, price_lt, cost, */
+        source: {
+          type: DataTypes.STRING
+        },
+        sourceaddr: {
+          type: DataTypes.STRING
+        },
+        target: {
+          type: DataTypes.STRING
+        },
+        targetaddr: {
+          type: DataTypes.STRING
+        },
+        km: {
+          type: DataTypes.NUMERIC
+        },
+        lt: {
+          type: DataTypes.NUMERIC
+        },
+        km_lt: {
+          type: DataTypes.NUMERIC
+        },
+        price_lt: {
+          type: DataTypes.NUMERIC
+        },
+        cost: {
+          type: DataTypes.NUMERIC
+        },
+
         routeid: {
           type: DataTypes.STRING
         }, 

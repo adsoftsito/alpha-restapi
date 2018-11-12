@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
  
     const route = sequelize.define('route', {
 
+      id: {
+        type: DataTypes.INTEGER,
+      },
         routeid: {
             type: DataTypes.STRING,
             primaryKey: true
@@ -31,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
  
   route.associate = function(models) {
  
- /*   driver.hasMany(models.order, {
-      foreignKey: 'driverid'
+    route.hasMany(models.route_detail, {
+      foreignKey: 'routeid'
     });
-*/
+
   };
   console.log(route);
   return route;

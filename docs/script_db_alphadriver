@@ -367,6 +367,17 @@ CREATE TABLE public.order
   trailerid1 character varying(20) NOT NULL,
   dollyid    character varying(20)  NULL,
   trailerid2 character varying(20)  NULL,
+
+  source character varying(100) NOT NULL,
+  sourceaddr character varying(100) NOT NULL,
+  target character varying(100) NOT NULL,
+  targetaddr character varying(100) NOT NULL,
+  km numeric not null,
+  lt numeric not null,
+  km_lt numeric not null,
+  price_lt numeric not null,
+  cost numeric not null,
+
   routeid character varying(20) NOT NULL,
   orderadminid integer not null,  
   orderstatusid integer not null,
@@ -401,11 +412,20 @@ ALTER TABLE public.order
 --drop table public.order;
 --select * from public.order;
 --select * from public.order
+-- select * from route
 /* 
- insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
- values ('hesa', 'ING-01', 1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
-insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, routeid, orderadminid, orderstatusid) 
- values ('hesa', 'ING-01', 2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 'r01', 1, 1);
+ insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2,
+   source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid, orderadminid, orderstatusid) 
+ values ('hesa', 'ING-01', 1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 
+  'Poliforum', 'Ote 7 col centro orizaba, ver.', 'motum', 'camino nacional 150, ixtaczoquitlan, ver', 10.5, 2, 5, 20.05, 200.10,
+ 'r01', 1, 1);
+ 
+insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, 
+ source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid,
+ orderadminid, orderstatusid) 
+ values ('hesa', 'ING-01', 2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 
+ 'motum', 'camino nacional 150, ixtaczoquitlan, ver', 'Poliforum', 'Ote 7 col centro orizaba, ver.',  10.5, 2, 5, 20.05, 200.10,
+ 'r01', 1, 1);
  
  */
 
@@ -468,6 +488,7 @@ references public.product_unit(productunitid)
 -- select * from order_detail
 -- select * from customer_product
 -- drop table product_unit
+select * from route
 select * from route_detail
 select * from company_place
 select * from customer_product

@@ -21,5 +21,5 @@ endpoints_api_service:
   name: eco-seeker-213615.appspot.com
   #rollout_strategy: managed 
   # Copyright 2015-2016, Google, 
-  config_id: 2018-11-07r1
+  config_id: 2018-11-12r0
 # [END configuration]

@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
  
     const truck = sequelize.define('truck', {
 
+      id: {
+        type: DataTypes.INTEGER,
+      },
           trucknumber: {
             type: DataTypes.STRING,
             primaryKey: true

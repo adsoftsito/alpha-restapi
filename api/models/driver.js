@@ -3,6 +3,9 @@ module.exports = (sequelize, DataTypes) => {
  
     const driver = sequelize.define('driver', {
 
+          id: {
+            type: DataTypes.INTEGER,
+          },
           driverid: {
             type: DataTypes.STRING,
             primaryKey: true
