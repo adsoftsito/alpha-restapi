@@ -134,24 +134,28 @@ function getTrucks(req, res) {
 }
 
 function getTruckById(req, res) {
-  console.log("operadores.controller getOperadorById");
   try {
-    console.log(req.swagger.params.id.value);
 
-    operadorService.getOperadorById(req.swagger.params.id.value)
-      .then(function (response) {
-        console.log("Good response: " + response);
-        utils.writeJson(res, response);
-      })
-      .catch(function (response) {
-        console.log("Bad response: " + response);
-        utils.writeJson(res, response);
-      });
-    console.log("Success");
+    console.log(req.swagger.params.id.value);
+    var id = req.swagger.params.id.value;
+   
+    console.log("truck by id...");
+    console.log(truck);
+
+    truck.findById(id,
+      { 
+        include: [{ all: true, nested: true }]
+      }
+    ).then(orders => {
+    console.log(orders);
+    res.status(200).send(orders);
+   })
+
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadorById.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getTruckById.name, error, res);
   }
+
 }
 
 

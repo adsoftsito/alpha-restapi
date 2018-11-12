@@ -413,6 +413,8 @@ ALTER TABLE public.order
 --select * from public.order;
 --select * from public.order
 -- select * from route
+-- select * from route_detail
+
 /* 
  insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2,
    source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid, orderadminid, orderstatusid) 

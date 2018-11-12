@@ -133,24 +133,27 @@ function getRoutes(req, res) {
   }
 }
 
-function getTruckById(req, res) {
-  console.log("operadores.controller getOperadorById");
+function getRouteById(req, res) {
   try {
-    console.log(req.swagger.params.id.value);
 
-    operadorService.getOperadorById(req.swagger.params.id.value)
-      .then(function (response) {
-        console.log("Good response: " + response);
-        utils.writeJson(res, response);
-      })
-      .catch(function (response) {
-        console.log("Bad response: " + response);
-        utils.writeJson(res, response);
-      });
-    console.log("Success");
+    console.log(req.swagger.params.id.value);
+    var id = req.swagger.params.id.value;
+   
+    console.log("route by id...");
+    console.log(route);
+
+   route.findById(id,
+      { 
+        include: [{ all: true, nested: true }]
+      }
+    ).then(orders => {
+    console.log(orders);
+    res.status(200).send(orders);
+   })
+
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadorById.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getRouteById.name, error, res);
   }
 }
 
@@ -218,7 +221,7 @@ function updateOperador(req, res) {
 
 module.exports = {
   getRoutes,
-  getTruckById,
+  getRouteById,
   updateOperador,
   deleteOperador,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
