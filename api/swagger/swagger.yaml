@@ -4,7 +4,7 @@ info:
   title: Game Collector App
 # during dev, should point to your local machine
 #host: localhost:10010
-host: eco-seeker-213615.appspot.com
+host: advance-path-222122.appspot.com
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -273,6 +273,36 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Viaje not found
+
+  '/viajes_detail/{id}':
+    x-swagger-router-controller: viajes.controller
+
+    get:
+      tags:
+        - viajes
+      summary: Find Viaje detail by ID
+      description: Returns a list of Viaje Detail
+      operationId: getOrderDetailbyId
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of viaje detail to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetViajeDetailListResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Viaje not found
+
+
   /trucks:
     x-swagger-router-controller: trucks.controller
 
@@ -721,6 +751,59 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Viaje"
+
+  ViajeDetail:
+    type: object
+    properties:
+      id:
+        type: number
+      companyid:
+        type: string
+      customerid:
+        type: string
+      orderid:
+        type: number
+      orderdetailid:
+        type: number
+      routedetailid:
+        type: string
+      orderdetaildescription:
+        type: string
+      orderdetailmessage:
+        type: string      
+      orderdetailarrivedate:
+        type: string      
+      orderdetailactivity: 
+        type: string      
+      orderdetailproductid:
+        type: string      
+      orderdetailproductdescription: 
+        type: string      
+      orderdetailproductquantity: 
+        type: string      
+      orderdetailproductunitid: 
+        type: string      
+      orderdetailproductunitdescription:
+        type: string      
+      orderdetailstatus:
+        type: string
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetViajeDetailListResponse:
+    required:
+      - orderdetail
+    properties:
+      orderdetail:
+        type: array
+        items:
+          $ref: "#/definitions/ViajeDetail"
 
   Licencia:
     type: object

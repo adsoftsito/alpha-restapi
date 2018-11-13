@@ -69,22 +69,6 @@ module.exports = (sequelize, DataTypes) => {
  }, {
     freezeTableName: true // Model tableName will be the same as the model name
   });
- /*
-
-  orderid integer NOT NULL,
-  driverid character varying(20) NOT NULL,
-  truckid character varying(20) NOT NULL,
-  trailerid1 character varying(20) NOT NULL,
-  dollyid    character varying(20)  NULL,
-  trailerid2 character varying(20)  NULL,
-  routeid character varying(20) NOT NULL,
-  orderadminid integer not null,  
-  orderstatusid integer not null,
-  order.belongsTo(orderstatus, {
-    foreignKey: 'orderstatusid',
-    constraints: false,
-    as: 'orderstatus'
-  });*/
   
   order.associate = function(models) {
 
@@ -119,9 +103,9 @@ module.exports = (sequelize, DataTypes) => {
       as: 'remolque2'
     });
 
-    order.belongsTo(models.route, {
-      foreignKey: 'routeid',
-      as: 'route'
+    order.belongsTo(models.order_detail, {
+      foreignKey: 'orderid',
+      as: 'order_detail'
     });
 
     order.belongsTo(models.orderstatusadmin, {

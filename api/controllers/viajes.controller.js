@@ -10,7 +10,7 @@ var viajesService = require('../services/viajes.service');
 var utils = require('../utils/writer.js');
 
 const { order } = require('../models');	// Sequelize
-const { OrderStatus } = require('../models');	// Sequelize
+const { order_detail } = require('../models');	// Sequelize
 
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
@@ -139,10 +139,37 @@ function getOrders(req, res) {
   }
 }
 
+function getOrderDetailbyId(req, res) {
+  //console.log("operadores.controller getOperadorById");
+  try {
+
+    console.log(req.swagger.params.id.value);
+    var id = req.swagger.params.id.value;
+   
+    console.log("order detail by id...");
+    console.log(order_detail);
+
+    order_detail.findAll(
+      {
+      where: {
+        id: id
+      }
+      }
+    ).then(orders => {
+    console.log(orders);
+    res.status(200).send(orders);
+   })
+
+  } catch (error) {
+    console.log("Was an error");
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOrderDetailbyId.name, error, res);
+  }
+}
 
 module.exports = {
   getOrders,
   getOrderbyId,
+  getOrderDetailbyId,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME

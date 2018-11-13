@@ -383,7 +383,7 @@ CREATE TABLE public.order
   orderstatusid integer not null,
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
-  CONSTRAINT order_pkey PRIMARY KEY (companyid, customerid, orderid)
+  CONSTRAINT order_pkey PRIMARY KEY (orderid)
 )
 WITH (
   OIDS=FALSE
@@ -462,7 +462,7 @@ CREATE TABLE public.order_detail
 
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
-  CONSTRAINT order_detail_pkey PRIMARY KEY (companyid, customerid, orderid, orderdetailid)
+  CONSTRAINT order_detail_pkey PRIMARY KEY (orderid, orderdetailid)
 )
 WITH (
   OIDS=FALSE
@@ -476,7 +476,7 @@ ALTER TABLE public.order_detail
 --alter table public.order_detail add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid) 
 --alter table public.order_detail add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid) 
 
---alter table public.order_detail add constraint order_detail_orderid_fkey foreign key (companyid, customerid, orderid) references public.order(companyid, customerid, orderid) 
+--alter table public.order_detail add constraint order_detail_orderid_fkey foreign key (orderid) references public.order(orderid) 
 --alter table public.order_detail add constraint order_detail_routedetailid_fkey foreign key (routedetailid) references public.route_detail(routedetailid) 
 /*
 alter table public.order_detail add constraint order_detail_orderdetailproductid_fkey foreign key (companyid, customerid, orderdetailproductid)
@@ -494,7 +494,7 @@ select * from route
 select * from route_detail
 select * from company_place
 select * from customer_product
-select * from order_detail
+select * from public.order_detail
 /*
  insert into public.order_detail(
   companyid,
