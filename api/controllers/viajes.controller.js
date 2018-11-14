@@ -152,7 +152,7 @@ function getOrderDetailbyId(req, res) {
     order_detail.findAll(
       {
       where: {
-        id: id
+        orderid: id
       }
       }
     ).then(orders => {
