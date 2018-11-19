@@ -153,7 +153,8 @@ function getOrderDetailbyId(req, res) {
       {
       where: {
         orderid: id
-      }
+      },
+      include: [{ all: true, nested: true }]
       }
     ).then(orders => {
     console.log(orders);

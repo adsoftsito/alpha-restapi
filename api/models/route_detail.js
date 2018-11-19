@@ -36,10 +36,9 @@ module.exports = (sequelize, DataTypes) => {
  
   route_detail.associate = function(models) {
  
- /*   driver.hasMany(models.order, {
-      foreignKey: 'driverid'
+    route_detail.belongsTo(models.company_place, {
+      foreignKey: 'placeid'
     });
-*/
   };
   console.log(route_detail);
   return route_detail;

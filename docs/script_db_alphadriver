@@ -1,4 +1,30 @@
-﻿/*
+﻿select * from company;
+
+/*
+-- drop table company
+
+CREATE TABLE public.company
+(
+  id SERIAL NOT NULL,
+  companyid character varying(20) NOT NULL,
+  companyname character varying(50), 
+  username    character varying(20), 
+  password character varying(20), 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT company_pkey PRIMARY KEY (companyid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.company
+  OWNER TO adsoft;
+
+*/
+
+-- insert into company(companyid, companyname, username, password) values ('hesa', 'fletes hesa sa de cv', 'acenteno', '332211');
+
+/*
 -- drop table truck
 
 CREATE TABLE public.truck
@@ -16,13 +42,15 @@ CREATE TABLE public.truck
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.driver
+ALTER TABLE public.truck
   OWNER TO adsoft;
 */
 -- select * from truck 
--- insert into truck(trucknumber, brand, model, year, plate) values ('TR-890', 'Freightliner', 'Cascadia', '2018', 'DW-821');
--- insert into truck(trucknumber, brand, model, year, plate) values ('TR-910', 'Cummis', 'Cascadia', '2014', 'WW-987');
-
+-- 
+/*
+insert into truck(trucknumber, brand, model, year, plate) values ('TR-890', 'Freightliner', 'Cascadia', '2018', 'DW-821');
+insert into truck(trucknumber, brand, model, year, plate) values ('TR-910', 'Cummis', 'Cascadia', '2014', 'WW-987');
+*/
 /*
 
 -- drop table trailer
@@ -43,13 +71,16 @@ CREATE TABLE public.trailer
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.driver
+ALTER TABLE public.trailer
   OWNER TO adsoft;
 */
--- select * from trailer 
--- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-01', 'Remolque', 'Cummins', 'Cascadia', '2016', 'RE-821');
--- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-02', 'Plana', 'Cummins', 'Cascadia', '2013', 'RE-999');
--- insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-03', 'Pipa', 'Freightliner', 'Cascadia', '2012', 'RE-111');
+-- 
+/*
+ insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-01', 'Remolque', 'Cummins', 'Cascadia', '2016', 'RE-821');
+ insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-02', 'Plana', 'Cummins', 'Cascadia', '2013', 'RE-999');
+ insert into trailer(trailernumber, trailertype, brand, model, year, plate) values ('R-03', 'Pipa', 'Freightliner', 'Cascadia', '2012', 'RE-111');
+select * from trailer 
+*/
 
 
 -- drop table dolly
@@ -68,14 +99,16 @@ CREATE TABLE public.dolly
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.driver
+ALTER TABLE public.dolly
   OWNER TO adsoft;
 */
--- select * from dolly 
--- insert into dolly(dollynumber, brand, model, year) values ('D-01', 'Cummins', 'Cascadia', '2018');
--- insert into dolly(dollynumber, brand, model, year) values ('D-02', 'Freighliner', 'Cascadia', '2016');
--- insert into dolly(dollynumber, brand, model, year) values ('D-03', 'Cummins', 'Cascadia', '2014');
-
+-- 
+/*
+ insert into dolly(dollynumber, brand, model, year) values ('D-01', 'Cummins', 'Cascadia', '2018');
+ insert into dolly(dollynumber, brand, model, year) values ('D-02', 'Freighliner', 'Cascadia', '2016');
+ insert into dolly(dollynumber, brand, model, year) values ('D-03', 'Cummins', 'Cascadia', '2014');
+select * from dolly 
+*/
 
 -- drop table customer
 /*
@@ -99,11 +132,13 @@ ALTER TABLE public.customer
 --alter table public.customer add constraint customer_customerid_fkey foreign key (companyid) references public.company(companyid) 
 
 */
--- select * from customer
--- insert into customer(customerid, companyid, customername, address) values ('ING-01', 'hesa', 'Ingenio San Miguelito', 'Col. Patrona, Cordoba, Ver');
--- insert into customer(customerid, companyid, customername, address) values ('SIV-01', 'hesa', 'Sivesa', 'Col. Centro, Orizaba, Ver');
--- insert into customer(customerid, companyid, customername, address) values ('KIM-01', 'hesa', 'Kimberly Clark', 'Col Centro, Ixtac, Ver');
-
+-- 
+/*
+ insert into customer(customerid, companyid, customername, address) values ('ING-01', 'hesa', 'Ingenio San Miguelito', 'Col. Patrona, Cordoba, Ver');
+ insert into customer(customerid, companyid, customername, address) values ('SIV-01', 'hesa', 'Sivesa', 'Col. Centro, Orizaba, Ver');
+ insert into customer(customerid, companyid, customername, address) values ('KIM-01', 'hesa', 'Kimberly Clark', 'Col Centro, Ixtac, Ver');
+select * from customer
+*/
 
 -- drop table company_place_type
 /*
@@ -122,14 +157,15 @@ WITH (
 ALTER TABLE public.company_place_type
   OWNER TO adsoft;
   
--- select * from company_place_type
+-- 
 -- select * from company_place
--- insert into company_place_type(placetypeid, placetypedescription) values ('0', 'origenes/destinos')
--- insert into company_place_type(placetypeid, placetypedescription) values ('1', 'casetas')
--- insert into company_place_type(placetypeid, placetypedescription) values ('2', 'exceso de velocidad')
--- insert into company_place_type(placetypeid, placetypedescription) values ('3', 'paradas autorizadas')
--- insert into company_place_type(placetypeid, placetypedescription) values ('4', 'zonas de riesgo')
-
+/*
+ insert into company_place_type(placetypeid, placetypedescription) values ('0', 'origenes/destinos');
+ insert into company_place_type(placetypeid, placetypedescription) values ('1', 'casetas');
+ insert into company_place_type(placetypeid, placetypedescription) values ('2', 'exceso de velocidad');
+ insert into company_place_type(placetypeid, placetypedescription) values ('3', 'paradas autorizadas');
+ insert into company_place_type(placetypeid, placetypedescription) values ('4', 'zonas de riesgo');
+select * from company_place_type
 */
 
 
@@ -157,25 +193,25 @@ WITH (
 );
 ALTER TABLE public.company_place
   OWNER TO adsoft;
-  
---alter table public.company_place add constraint company_place_placetype_fkey foreign key (placetype) references public.company_place_type(placetypeid) 
---alter table public.company_place add constraint company_place_companyid_fkey foreign key (companyid) references public.company(companyid) 
+/*  
+alter table public.company_place add constraint company_place_placetype_fkey foreign key (placetype) references public.company_place_type(placetypeid); 
+alter table public.company_place add constraint company_place_companyid_fkey foreign key (companyid) references public.company(companyid); 
 
 */
 
 -- select * from company_place
 /*
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
-  values  ('pol', 'hesa', 'poliforum', 'pte 7 100, orizaba, ver', 'inicio de viaje, ajustar cinturon', '0', 20.987665, -95.464673, 100, '[{}]')
+  values  ('pol', 'hesa', 'poliforum', 'pte 7 100, orizaba, ver', 'inicio de viaje, ajustar cinturon', '0', 20.987665, -95.464673, 100, '[{}]');
 
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
-  values  ('cas', 'hesa', 'caseta fortin', 'km 280 fortin ver', 'caseta proxima, reducir velocidad', '1', 20.987665, -95.464673, 500, '[{}]')
+  values  ('cas', 'hesa', 'caseta fortin', 'km 280 fortin ver', 'caseta proxima, reducir velocidad', '1', 20.987665, -95.464673, 500, '[{}]');
 
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
-  values  ('par', 'hesa', 'parada autorizada', 'col barrio nuevo, orizaba ver', 'parada autorizada, comedor 1', '2', 20.987665, -95.464673, 400, '[{}]')
+  values  ('par', 'hesa', 'parada autorizada', 'col barrio nuevo, orizaba ver', 'parada autorizada, comedor 1', '2', 20.987665, -95.464673, 400, '[{}]');
 
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
-  values  ('motum', 'hesa', 'tecnomotum sa de cv', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]')
+  values  ('motum', 'hesa', 'tecnomotum sa de cv', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
 
 */
 
@@ -200,17 +236,19 @@ WITH (
 ALTER TABLE public.route
   OWNER TO adsoft;
 -- select * from customer
---alter table public.route add constraint route_companyid_fkey foreign key (companyid) references public.company(companyid) 
---alter table public.route add constraint route_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+/*
+alter table public.route add constraint route_companyid_fkey foreign key (companyid) references public.company(companyid); 
+alter table public.route add constraint route_customerid_fkey foreign key (customerid) references public.customer(customerid); 
 
---alter table public.route add constraint route_placesource_fkey foreign key (placesource) references public.company_place(placeid) 
---alter table public.route add constraint route_placetarget_fkey foreign key (placetarget) references public.company_place(placeid) 
-
+alter table public.route add constraint route_placesource_fkey foreign key (placesource) references public.company_place(placeid); 
+alter table public.route add constraint route_placetarget_fkey foreign key (placetarget) references public.company_place(placeid); 
+*/
 --select * from company_places
---select * from route
-insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r01','hesa', 'ING-01', 'pol','motum') 
-insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r02','hesa', 'KIM-01', 'motum','pol') 
-
+--
+/*
+insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r01','hesa', 'ING-01', 'pol','motum'); 
+insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r02','hesa', 'KIM-01', 'motum','pol'); 
+select * from route
 */
 
 
@@ -233,38 +271,20 @@ WITH (
 );
 ALTER TABLE public.route_detail	
   OWNER TO adsoft;
+  
 -- select * from route_detail
---alter table public.route_detail add constraint routedetail_routeid_fkey foreign key (routeid) references public.route(routeid) 
---alter table public.route_detail add constraint routedetail_placeid_fkey foreign key (placeid) references public.company_place(placeid) 
--- select * from company_place
---insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-01','r01', 'pol', '1', 1)
---insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-02','r01', 'cas', '1', 2)
---insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-03','r01', 'par', '1', 3)
---insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-04','r01', 'motum', '1', 4)
-
 /*
--- drop table company
-
-CREATE TABLE public.company
-(
-  id SERIAL NOT NULL,
-  companyid character varying(20) NOT NULL,
-  companyname character varying(50), 
-  username    character varying(20), 
-  password character varying(20), 
-  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
-  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
- CONSTRAINT company_pkey PRIMARY KEY (companyid)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.driver
-  OWNER TO adsoft;
-
+alter table public.route_detail add constraint routedetail_routeid_fkey foreign key (routeid) references public.route(routeid); 
+alter table public.route_detail add constraint routedetail_placeid_fkey foreign key (placeid) references public.company_place(placeid); 
 */
-
--- insert into company(companyid, companyname, username, password) values ('hesa', 'fletes hesa sa de cv', 'acenteno', '332211');
+-- 
+/*
+insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-01','r01', 'pol', '1', 1);
+insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-02','r01', 'cas', '1', 2);
+insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-03','r01', 'par', '1', 3);
+insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-04','r01', 'motum', '1', 4);
+select * from company_place
+*/
 -- 	
 /*
 -- drop table driver
@@ -320,12 +340,12 @@ ALTER TABLE public.orderstatusadmin
   OWNER TO adsoft;
 
 */
-
--- insert into orderstatusadmin(orderstatusadminid, description) values (1, 'asignado');
--- insert into orderstatusadmin(orderstatusadminid, description) values (2, 'iniciado');
--- insert into orderstatusadmin(orderstatusadminid, description) values (3, 'en transito');
--- insert into orderstatusadmin(orderstatusadminid, description) values (4, 'finalizado');
-
+/*
+ insert into orderstatusadmin(orderstatusadminid, description) values (1, 'asignado');
+ insert into orderstatusadmin(orderstatusadminid, description) values (2, 'iniciado');
+ insert into orderstatusadmin(orderstatusadminid, description) values (3, 'en transito');
+ insert into orderstatusadmin(orderstatusadminid, description) values (4, 'finalizado');
+*/
 -- select * from orderstatusadmin
 
 
@@ -349,12 +369,76 @@ ALTER TABLE public.orderstatus
   OWNER TO adsoft;
 
 */
-
--- insert into orderstatus(orderstatusid, description) values (1, 'cargando');
--- insert into orderstatus(orderstatusid, description) values (2, 'en curso');
--- select * from orderstatus
-
+/*
+ insert into orderstatus(orderstatusid, description) values (1, 'cargando');
+ insert into orderstatus(orderstatusid, description) values (2, 'en curso');
+ select * from orderstatus
+*/
 -- drop table public.order
+
+/*
+CREATE TABLE public.product_unit
+(
+  id SERIAL NOT NULL,
+  productunitid numeric NOT NULL,
+  productunitdescription character varying(20) NOT NULL,
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT product_unit_pkey PRIMARY KEY (productunitid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.product_unit
+  OWNER TO adsoft;
+/*
+ insert into product_unit(productunitid, productunitdescription) values (1, 'SACO');
+ insert into product_unit(productunitid, productunitdescription) values (2, 'TON');
+-- insert into product_unit(productunitid, productunitdescription) values (3, 'CAJA');
+*/
+/*
+CREATE TABLE public.customer_product
+(
+  id SERIAL NOT NULL,
+  companyid character varying(20) NOT NULL,
+  customerid character varying(20) NOT NULL,
+  productid character varying(20) NOT NULL,
+  productdescription character varying(100), 
+  productunitid      numeric, 
+  productunitdescription    character varying(50), 
+  productprice       numeric, 
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
+ CONSTRAINT customer_product_pkey PRIMARY KEY (companyid, customerid, productid)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.customer_product
+  OWNER TO adsoft;
+/*
+alter table public.customer_product add constraint customer_product_companyid_fkey foreign key (companyid) references public.company(companyid); 
+alter table public.customer_product add constraint customer_product_customerid_fkey foreign key (customerid) references public.customer(customerid); 
+alter table public.customer_product add constraint customer_product_productunitid_fkey foreign key (productunitid) references public.product_unit(productunitid);
+ */
+-- 
+--select * from product_unit
+/* 
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-01', 'azucar', 1, 'saco', 1000);
+
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-02', 'frijol', 2, 'ton', 5000);
+
+insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
+values('hesa', 'ING-01', 'p-03', 'huevo', 3, 'caja', 1000);
+
+select * from customer_product
+--
+*/
+
+
+
 /*
 CREATE TABLE public.order
 (
@@ -393,22 +477,24 @@ ALTER TABLE public.order
 
 */
 -- select * from truck;
---alter table public.order add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid) 
---alter table public.order add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid) 
+/*
 
---alter table public.order add constraint order_truckid_fkey foreign key (truckid) references public.truck(trucknumber) 
---alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(driverid) 
+alter table public.order add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid); 
+alter table public.order add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid); 
 
---alter table public.order add constraint order_trailerid1_fkey foreign key (trailerid1) references public.trailer(trailernumber) 
---alter table public.order add constraint order_dollyid_fkey foreign key (dollyid) references public.dolly(dollynumber) 
---alter table public.order add constraint order_trailerid2_fkey foreign key (trailerid2) references public.trailer(trailernumber) 
+alter table public.order add constraint order_truckid_fkey foreign key (truckid) references public.truck(trucknumber); 
+alter table public.order add constraint order_driverid_fkey foreign key (driverid) references public.driver(driverid); 
 
---alter table public.order add constraint order_routeid_fkey foreign key (routeid) references public.route(routeid) 
+alter table public.order add constraint order_trailerid1_fkey foreign key (trailerid1) references public.trailer(trailernumber); 
+alter table public.order add constraint order_dollyid_fkey foreign key (dollyid) references public.dolly(dollynumber); 
+alter table public.order add constraint order_trailerid2_fkey foreign key (trailerid2) references public.trailer(trailernumber); 
 
+alter table public.order add constraint order_routeid_fkey foreign key (routeid) references public.route(routeid); 
 
---alter table public.order add constraint order_orderadminstatusid_fkey foreign key (orderadminid) references public.orderstatusadmin(orderstatusadminid) 
---alter table public.order add constraint order_orderstatusid_fkey foreign key (orderstatusid) references public.orderstatus(orderstatusid) 
+alter table public.order add constraint order_orderadminstatusid_fkey foreign key (orderadminid) references public.orderstatusadmin(orderstatusadminid); 
+alter table public.order add constraint order_orderstatusid_fkey foreign key (orderstatusid) references public.orderstatus(orderstatusid); 
 
+*/
 --drop table public.order;
 --select * from public.order;
 --select * from public.order
@@ -428,7 +514,8 @@ insert into public.order(companyid, customerid, orderid, driverid, truckid, trai
  values ('hesa', 'ING-01', 2, 'op-02', 'TR-890', 'R-01', 'D-01', 'R-02', 
  'motum', 'camino nacional 150, ixtaczoquitlan, ver', 'Poliforum', 'Ote 7 col centro orizaba, ver.',  10.5, 2, 5, 20.05, 200.10,
  'r01', 1, 1);
- 
+
+ select * from public.order
  */
 
 -- drop table public.order_detail
@@ -472,19 +559,17 @@ ALTER TABLE public.order_detail
 
 */
 -- select * from truck;
-
---alter table public.order_detail add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid) 
---alter table public.order_detail add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid) 
-
---alter table public.order_detail add constraint order_detail_orderid_fkey foreign key (orderid) references public.order(orderid) 
---alter table public.order_detail add constraint order_detail_routedetailid_fkey foreign key (routedetailid) references public.route_detail(routedetailid) 
 /*
+
+alter table public.order_detail add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid); 
+alter table public.order_detail add constraint order_customerid_fkey foreign key (customerid) references public.customer(customerid); 
+alter table public.order_detail add constraint order_detail_orderid_fkey foreign key (orderid) references public.order(orderid); 
+alter table public.order_detail add constraint order_detail_routedetailid_fkey foreign key (routedetailid) references public.route_detail(routedetailid);
+
 alter table public.order_detail add constraint order_detail_orderdetailproductid_fkey foreign key (companyid, customerid, orderdetailproductid)
- references public.customer_product(companyid, customerid, productid) 
-*/
-/*
+ references public.customer_product(companyid, customerid, productid); 
 alter table public.order_detail add constraint order_detail_ordetailproductunitid_fkey foreign key (orderdetailproductunitid) 
-references public.product_unit(productunitid) 
+references public.product_unit(productunitid); 
 */
 -- select * from public.order
 -- select * from order_detail
@@ -494,7 +579,6 @@ select * from route
 select * from route_detail
 select * from company_place
 select * from customer_product
-select * from public.order_detail
 /*
  insert into public.order_detail(
   companyid,
@@ -513,69 +597,59 @@ select * from public.order_detail
   orderdetailproductquantity,
   orderdetailproductunitid,
   orderdetailproductunitdescription,
-  orderdetailstatus) values ('hesa', 'ING-01', 1, 1, 
-
-  'r01-01', 'poliforum', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
+  orderdetailstatus) 
+  values ('hesa', 'ING-01', 1, 1, 'r01-01', 'poliforum', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
      'p-01', 'azucar', 100, 1, 'saco', '1');
+
+
+ insert into public.order_detail(
+  companyid,
+  customerid,
+  orderid,
+  orderdetailid,
+  
+  routedetailid,
+  orderdetaildescription,
+  orderdetailmessage,
+  orderdetailarrivedate,
+  orderdetailactivity,
+  
+  orderdetailproductid,
+  orderdetailproductdescription,
+  orderdetailproductquantity,
+  orderdetailproductunitid,
+  orderdetailproductunitdescription,
+  orderdetailstatus) 
+  values ('hesa', 'ING-01', 1, 2, 'r01-02', 'caseta de fortin', 'caseta proxima, bajar velocidad', '2018-11-08', 'viajando', 
+     'p-01', 'azucar', 80, 1, 'saco', '1');
+
+
+      insert into public.order_detail(
+  companyid,
+  customerid,
+  orderid,
+  orderdetailid,
+  
+  routedetailid,
+  orderdetaildescription,
+  orderdetailmessage,
+  orderdetailarrivedate,
+  orderdetailactivity,
+  
+  orderdetailproductid,
+  orderdetailproductdescription,
+  orderdetailproductquantity,
+  orderdetailproductunitid,
+  orderdetailproductunitdescription,
+  orderdetailstatus) 
+  values ('hesa', 'ING-01', 1, 3, 'r01-03', 'parada autorizada', 'paradad autorizada', '2018-11-09', 'descargando', 
+     'p-01', 'azucar', 50, 1, 'saco', '1');
+
+
+select * from public.order_detail
+
 */
-
-/*
-CREATE TABLE public.product_unit
-(
-  id SERIAL NOT NULL,
-  productunitid numeric NOT NULL,
-  productunitdescription character varying(20) NOT NULL,
-  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
-  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
- CONSTRAINT product_unit_pkey PRIMARY KEY (productunitid)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.product_unit
-  OWNER TO adsoft;
-
--- insert into product_unit(productunitid, productunitdescription) values (1, 'SACO');
--- insert into product_unit(productunitid, productunitdescription) values (2, 'TON');
--- insert into product_unit(productunitid, productunitdescription) values (3, 'CAJA');
-
-/*
-CREATE TABLE public.customer_product
-(
-  id SERIAL NOT NULL,
-  companyid character varying(20) NOT NULL,
-  customerid character varying(20) NOT NULL,
-  productid character varying(20) NOT NULL,
-  productdescription character varying(100), 
-  productunitid      numeric, 
-  productunitdescription    character varying(50), 
-  productprice       numeric, 
-  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
-  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
- CONSTRAINT customer_product_pkey PRIMARY KEY (companyid, customerid, productid)
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE public.customer_product
-  OWNER TO adsoft;
-
---alter table public.customer_product add constraint customer_product_companyid_fkey foreign key (companyid) references public.company(companyid) 
---alter table public.customer_product add constraint customer_product_customerid_fkey foreign key (customerid) references public.customer(customerid) 
---alter table public.customer_product add constraint customer_product_productunitid_fkey foreign key (productunitid) references public.product_unit(productunitid) 
--- delete from customer_product
-select * from product_unit
--- 
-insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
-values('hesa', 'ING-01', 'p-01', 'azucar', 1, 'saco', 1000);
-
-insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
-values('hesa', 'ING-01', 'p-02', 'frijol', 2, 'ton', 5000);
-
-insert into customer_product(companyid, customerid, productid, productdescription, productunitid, productunitdescription, productprice)
-values('hesa', 'ING-01', 'p-03', 'huevo', 3, 'caja', 1000);
-
---
-*/
+select * from public.order
+select * from order_detail
 
 select * from company

@@ -3,7 +3,7 @@
     "username": "adsoft",
     "password": "5i5i5i5i",
     "database": "alphadriver",
-    "host": "35.237.69.58",
+    "host": "35.188.104.190",
     "port": 5432,
     "dialect": "postgres",
     "freezeTableName": true
@@ -12,7 +12,7 @@
     "username": "adsoft",
     "password": "5i5i5i5i",
     "database": "alphadriver",
-    "host": "35.237.69.58",
+    "host": "35.188.104.190",
     "port": 5432,
     "dialect": "postgres",
     "freezeTableName": true
@@ -21,7 +21,7 @@
     "username": "adsoft",
     "password": "5i5i5i5i",
     "database": "alphadriver",
-    "host": "35.237.69.58",
+    "host": "35.188.104.190",
     "port": 5432,
     "dialect": "postgres"
   }
