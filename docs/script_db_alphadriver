@@ -50,6 +50,8 @@ ALTER TABLE public.truck
 /*
 insert into truck(trucknumber, brand, model, year, plate) values ('TR-890', 'Freightliner', 'Cascadia', '2018', 'DW-821');
 insert into truck(trucknumber, brand, model, year, plate) values ('TR-910', 'Cummis', 'Cascadia', '2014', 'WW-987');
+insert into truck(trucknumber, brand, model, year, plate) values ('TR-999', 'Dina', 'Dina 100', '2017', 'DI-999');
+
 */
 /*
 
@@ -259,7 +261,9 @@ CREATE TABLE public.route_detail
   id SERIAL NOT NULL,
   routedetailid character varying(20) NOT NULL,
   routeid character varying(20) NOT NULL,
-  placeid      character varying(20), 
+  placeid      character varying(20),
+  category      character varying(20),
+  type      character varying(20), 
   status       character varying(1), 
   position        integer,
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
@@ -285,7 +289,9 @@ insert into route_detail(routedetailid, routeid, placeid, status, position) valu
 insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-04','r01', 'motum', '1', 4);
 select * from company_place
 */
--- 	
+-- 
+
+	
 /*
 -- drop table driver
 
@@ -452,6 +458,13 @@ CREATE TABLE public.order
   dollyid    character varying(20)  NULL,
   trailerid2 character varying(20)  NULL,
 
+  zone character varying(20)  NULL,
+  assigndate date NOT NULL DEFAULT ('now'::text)::date,
+  teadate date NOT NULL DEFAULT ('now'::text)::date,
+  enddate date NOT NULL DEFAULT ('now'::text)::date,
+  teastatus varying(20) not null,
+
+    
   source character varying(100) NOT NULL,
   sourceaddr character varying(100) NOT NULL,
   target character varying(100) NOT NULL,
@@ -476,7 +489,7 @@ ALTER TABLE public.order
   OWNER TO adsoft;
 
 */
--- select * from truck;
+-- select * from public.order;
 /*
 
 alter table public.order add constraint order_companyid_fkey foreign key (companyid) references public.company(companyid); 
@@ -503,8 +516,13 @@ alter table public.order add constraint order_orderstatusid_fkey foreign key (or
 
 /* 
  insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2,
+ zone,
+ teastatus,
+
    source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid, orderadminid, orderstatusid) 
  values ('hesa', 'ING-01', 1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 
+ 'zone1', 'status 1',
+ 
   'Poliforum', 'Ote 7 col centro orizaba, ver.', 'motum', 'camino nacional 150, ixtaczoquitlan, ver', 10.5, 2, 5, 20.05, 200.10,
  'r01', 1, 1);
  
@@ -536,6 +554,9 @@ CREATE TABLE public.order_detail
 
   routedetailid character varying(20) NOT NULL,
   orderdetaildescription character varying(200) NOT NULL,
+  category      character varying(20),
+  type      character varying(20), 
+
   orderdetailmessage character varying(200) NOT NULL,
 
   orderdetailarrivedate date NOT NULL,
@@ -547,9 +568,15 @@ CREATE TABLE public.order_detail
   orderdetailproductunitdescription character varying(50) NOT NULL,
   orderdetailstatus character varying(1) NOT NULL,
 
+  signsnumber integer NOT NULL,
+  picturesnumber integer NOT NULL,
+  commentsnumber integer NOT NULL,
+  qrsnumber integer NOT NULL,
+  codebarsnumber integer NOT NULL,
+
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
-  CONSTRAINT order_detail_pkey PRIMARY KEY (orderid, orderdetailid)
+  CONSTRAINT order_detail_pkey PRIMARY KEY (orderdetailid)
 )
 WITH (
   OIDS=FALSE
@@ -588,6 +615,8 @@ select * from customer_product
   
   routedetailid,
   orderdetaildescription,
+  category,
+  type, 
   orderdetailmessage,
   orderdetailarrivedate,
   orderdetailactivity,
@@ -597,9 +626,18 @@ select * from customer_product
   orderdetailproductquantity,
   orderdetailproductunitid,
   orderdetailproductunitdescription,
-  orderdetailstatus) 
-  values ('hesa', 'ING-01', 1, 1, 'r01-01', 'poliforum', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
-     'p-01', 'azucar', 100, 1, 'saco', '1');
+  orderdetailstatus,
+
+  signsnumber,
+  picturesnumber,
+  commentsnumber,
+  qrsnumber,
+  codebarsnumber
+
+
+  ) 
+  values ('hesa', 'ING-01', 1, 1, 'r01-01', 'poliforum', 'base', 'planta', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
+     'p-01', 'azucar', 100, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
 
  insert into public.order_detail(
@@ -610,6 +648,9 @@ select * from customer_product
   
   routedetailid,
   orderdetaildescription,
+    category,
+  type, 
+
   orderdetailmessage,
   orderdetailarrivedate,
   orderdetailactivity,
@@ -619,9 +660,15 @@ select * from customer_product
   orderdetailproductquantity,
   orderdetailproductunitid,
   orderdetailproductunitdescription,
-  orderdetailstatus) 
-  values ('hesa', 'ING-01', 1, 2, 'r01-02', 'caseta de fortin', 'caseta proxima, bajar velocidad', '2018-11-08', 'viajando', 
-     'p-01', 'azucar', 80, 1, 'saco', '1');
+  orderdetailstatus,
+  signsnumber,
+  picturesnumber,
+  commentsnumber,
+  qrsnumber,
+  codebarsnumber
+  ) 
+  values ('hesa', 'ING-01', 1, 2, 'r01-02', 'caseta de fortin', 'logistico', 'agencia', 'caseta proxima, bajar velocidad', '2018-11-08', 'viajando', 
+     'p-01', 'azucar', 80, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
 
       insert into public.order_detail(
@@ -632,6 +679,9 @@ select * from customer_product
   
   routedetailid,
   orderdetaildescription,
+    category,
+  type, 
+
   orderdetailmessage,
   orderdetailarrivedate,
   orderdetailactivity,
@@ -641,15 +691,64 @@ select * from customer_product
   orderdetailproductquantity,
   orderdetailproductunitid,
   orderdetailproductunitdescription,
-  orderdetailstatus) 
-  values ('hesa', 'ING-01', 1, 3, 'r01-03', 'parada autorizada', 'paradad autorizada', '2018-11-09', 'descargando', 
-     'p-01', 'azucar', 50, 1, 'saco', '1');
+  orderdetailstatus,
+  signsnumber,
+  picturesnumber,
+  commentsnumber,
+  qrsnumber,
+  codebarsnumber) 
+  values ('hesa', 'ING-01', 1, 3, 'r01-03', 'parada autorizada', 'operacion', 'planta', 'parada autorizada', '2018-11-09', 'descargando', 
+     'p-01', 'azucar', 50, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
 
 select * from public.order_detail
 
 */
+
 select * from public.order
 select * from order_detail
+drop table public.order_assets
+/*
+CREATE TABLE public.order_assets
+(
+  id SERIAL NOT NULL,
+  
+  orderdetailid integer NOT NULL,
+  type   integer NOT NULL,
+  name        character varying(50)  NULL,
+  description character varying(500)  NULL,
+  userid   character varying(50)  NULL,
+  username character varying(500)  NULL,
+  url character varying(200)  NULL,
 
-select * from company
+
+  "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
+  "updatedAt" date NOT NULL DEFAULT ('now'::text)::date 
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.order_assets
+  OWNER TO adsoft;
+
+*/
+-- select * from truck;
+/*
+
+alter table public.order_assets add constraint order_assets_order_fkey foreign key (orderdetailid) references public.order_detail(orderdetailid); 
+
+*/
+-- select * from order_assets
+
+/* 
+ insert into public.order_assets(orderdetailid, type, name, description, userid, username, url) 
+ values (1, 0, 'ADOLFO CENTENO', 'firma de recepcion', 'hesatest', 'hesatest', 'google.com');
+
+insert into public.order_assets(orderdetailid, type, name, description, userid, username, url) 
+ values (2, 0, 'ALEJANDRO REYES', 'firma de salida', 'hesatest', 'hesatest', 'google.com');
+
+ insert into public.order_assets(orderdetailid, type, name, description, userid, username, url) 
+ values (1, 5, 'carta porte', 'carta porte viaje', 'hesatest', 'hesatest', 'google.com');
+ 
+ 
+ */

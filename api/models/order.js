@@ -26,8 +26,27 @@ module.exports = (sequelize, DataTypes) => {
         trailerid2: {
           type: DataTypes.STRING
         },
-/* ,  ,  , ,
- km, lt, km_lt, price_lt, cost, */
+/*  zone character varying(20)  NULL,
+  assigndate date NOT NULL DEFAULT ('now'::text)::date,
+  teadate date NOT NULL DEFAULT ('now'::text)::date,
+  enddate date NOT NULL DEFAULT ('now'::text)::date,
+  teastatus varying(20) not null, */
+        zone: {
+          type: DataTypes.STRING
+        },
+        assigndate: {
+          type: DataTypes.STRING
+        },
+        teadate: {
+          type: DataTypes.STRING
+        },
+        enddate: {
+          type: DataTypes.STRING
+        },
+        teastatus: {
+          type: DataTypes.STRING
+        },
+
         source: {
           type: DataTypes.STRING
         },
@@ -72,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
   
   order.associate = function(models) {
 
-    
+  /*  
     order.belongsTo(models.driver, {
       foreignKey: 'driverid',
        
@@ -102,12 +121,14 @@ module.exports = (sequelize, DataTypes) => {
        
       as: 'remolque2'
     });
-
+*/
+    /*
     order.belongsTo(models.order_detail, {
-      foreignKey: 'orderid',
+      foreignKey: 'id',
       as: 'order_detail'
     });
-
+*/
+/*
     order.belongsTo(models.orderstatusadmin, {
       foreignKey: 'orderadminid',
       as: 'orderstatusadmin'
@@ -118,8 +139,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'orderstatusid',
       as: 'orderstatus'
     });
+*/
 
- 
+    order.hasMany(models.order_detail, {
+      foreignKey: 'orderid',
+      as: 'orderdetail'
+    });
+
   };
 
   

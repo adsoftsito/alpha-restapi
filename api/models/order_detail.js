@@ -2,10 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
  
     const order_detail = sequelize.define('order_detail', {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true
-      },
+        id: {
+          type: DataTypes.INTEGER,
+          primaryKey: true
+        },
 
         companyid: {
           type: DataTypes.STRING
@@ -18,6 +18,8 @@ module.exports = (sequelize, DataTypes) => {
         },        
         orderdetailid: {
               type: DataTypes.INTEGER
+            //  primaryKey: true
+
         },
         routedetailid: {
                     type: DataTypes.STRING
@@ -51,6 +53,22 @@ module.exports = (sequelize, DataTypes) => {
         },
         orderdetailstatus: {
           type: DataTypes.STRING
+        },
+        
+        signsnumber: {
+          type: DataTypes.INTEGER
+        },
+        picturesnumber: {
+          type: DataTypes.INTEGER
+        },
+        commentsnumber: {
+          type: DataTypes.INTEGER
+        },
+        qrsnumber: {
+          type: DataTypes.INTEGER
+        },
+        codebarsnumber : {
+          type: DataTypes.INTEGER
         }
               
  }, {

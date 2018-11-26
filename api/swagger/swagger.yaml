@@ -710,6 +710,16 @@ definitions:
         type: string
       trailerid2:
         type: string
+      zone: 
+        type: string       
+      assigndate: 
+        type: string
+      teadate: 
+        type: string
+      enddate: 
+        type: string
+      teastatus: 
+        type: string
       source:
         type: string      
       sourceaddr:
