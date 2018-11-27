@@ -91,7 +91,7 @@ module.exports = (sequelize, DataTypes) => {
   
   order.associate = function(models) {
 
-  /*  
+    
     order.belongsTo(models.driver, {
       foreignKey: 'driverid',
        
@@ -121,14 +121,14 @@ module.exports = (sequelize, DataTypes) => {
        
       as: 'remolque2'
     });
-*/
+
     /*
     order.belongsTo(models.order_detail, {
       foreignKey: 'id',
       as: 'order_detail'
     });
 */
-/*
+
     order.belongsTo(models.orderstatusadmin, {
       foreignKey: 'orderadminid',
       as: 'orderstatusadmin'
@@ -139,7 +139,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'orderstatusid',
       as: 'orderstatus'
     });
-*/
+
 
     order.hasMany(models.order_detail, {
       foreignKey: 'orderid',
