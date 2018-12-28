@@ -233,11 +233,18 @@ paths:
       - "application/json"
       parameters:
         - in: body
-          name: body
+
+          name: myorder
           description: Viaje object that needs to be added
           required: true
           schema:
-            $ref: '#/definitions/Viaje'      
+            $ref: '#/definitions/Order'
+
+          #name: orderdet
+          #description: Viaje object that needs to be added
+          #required: true
+          #schema:
+          #  $ref: '#/definitions/GetViajeDetailListResponse'
       responses:
         '200':
           description: successful operation
@@ -463,7 +470,7 @@ paths:
         404:
           description: "Routes not found"
 
-  '/rutas/{id}':
+  '/rutas_detail/{id}':
     x-swagger-router-controller: routes.controller
 
     get:
@@ -471,7 +478,7 @@ paths:
         - rutas
       summary: Find dolly by ID
       description: Returns a single route
-      operationId: getRouteById
+      operationId: getRouteDetailById
       produces:
         - application/json
       parameters:
@@ -479,13 +486,12 @@ paths:
           in: path
           description: ID of route to return
           required: true
-          type: integer
-          format: int64
+          type: string
       responses:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Route'
+            $ref: '#/definitions/GetRouteDetailListResponse'
         '400':
           description: Invalid ID supplied
         '404':
@@ -579,6 +585,47 @@ definitions:
         items:
           $ref: "#/definitions/Route"
       
+  RouteDetail:
+    type: object
+    properties:
+#      id:
+#        type: integer
+#        format: int64
+
+      routeid:
+        type: string
+
+      routedetailid:
+        type: string
+ 
+      customerid:
+        type: string
+
+      placeid:
+        type: string
+      status:
+        type: string
+      position:
+        type: integer
+      
+#    example:
+#      codigo: 100
+#      descripcion: 'viaje demo 1'
+#      id: 0
+#      origen: 'orizaba'
+#      destino: 'ciudad mexico'
+    xml:
+      name: Viaje
+
+  GetRouteDetailListResponse:
+    required:
+      - routes
+    properties:
+      routes:
+        type: array
+        items:
+          $ref: "#/definitions/RouteDetail"
+
 
   Trailer:
     type: object
@@ -806,6 +853,19 @@ definitions:
     xml:
       name: Viaje
 
+  Order:
+    required:
+      - order
+      - orderdetail
+    properties:
+    
+      order:
+        $ref: "#/definitions/Viaje"
+      orderdetail:
+        type: array
+        items:
+          $ref: "#/definitions/ViajeDetail"
+          
   GetViajeDetailListResponse:
     required:
       - orderdetail

@@ -167,6 +167,53 @@ function getOrderDetailbyId(req, res) {
   }
 }
 
+
+function createOrder(req, res) {
+  //console.log("operadores.controller getOperadorById");
+  try {
+
+    //console.log(req.swagger.params.id.value);
+    //var id = req.swagger.params.id.value;
+   
+    console.log("create order...");
+    //console.log(order_detail);
+/*
+      return order
+        .create({
+          companyid: req.body.companyid,
+          customerid: req.body.course_name,
+          orderid: req.body.course_name,
+          driverid: req.body.course_name,
+          truckid: req.body.course_name,
+          trailerid1: req.body.course_name,
+          dollyid: req.body.course_name,
+          trailerid2: req.body.course_name,
+
+        })
+        .then((myorder) => res.status(201).send(myorder))
+        .catch((error) => res.status(400).send(error));
+    
+
+*/
+  return order
+    .create({
+      order: req.body.order,
+      orderdetails: req.body.orderdetails,
+    }, {
+      include: [{
+        model: order_detail,
+        as: 'orderdetails'
+      }]
+    })
+    .then((myorder) => res.status(201).send(myorder))
+    .catch((error) => res.status(400).send(error));
+
+  } catch (error) {
+    console.log("Was an error");
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOrderDetailbyId.name, error, res);
+  }
+}
+
 module.exports = {
   getOrders,
   getOrderbyId,

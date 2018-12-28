@@ -10,6 +10,7 @@ var operadoresService = require('../services/operadores.service');
 var utils = require('../utils/writer');
 
 const { route } = require('../models');	// Sequelize
+const { route_detail } = require('../models');	// Sequelize
 
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
@@ -133,32 +134,35 @@ function getRoutes(req, res) {
   }
 }
 
-function getRouteById(req, res) {
+function getRouteDetailById(req, res) {
   try {
 
     console.log(req.swagger.params.id.value);
     var id = req.swagger.params.id.value;
    
-    console.log("route by id...");
+    console.log("route_detail by id...");
     console.log(route);
 
-   route.findById(id,
-      { 
-        include: [{ all: true, nested: true }]
+    route_detail.findAll(
+      {
+      where: {
+        routeid: id
       }
-    ).then(orders => {
-    console.log(orders);
-    res.status(200).send(orders);
+      //include: [{ all: true, nested: true }]
+      }
+    ).then(routedetail => {
+    console.log(routedetail);
+    res.status(200).send(routedetail);
    })
 
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getRouteById.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getRouteDetailById.name, error, res);
   }
 }
 
 
-
+/*
 function createOperador(req, res) {
   try {
     // Receiving parameters
@@ -218,12 +222,12 @@ function updateOperador(req, res) {
     controllerHelper.handleErrorResponse(MODULE_NAME, deleteOperador.name, error, res);
   }
 }
-
+*/
 module.exports = {
   getRoutes,
-  getRouteById,
-  updateOperador,
-  deleteOperador,
+  getRouteDetailById,
+ // updateOperador,
+ // deleteOperador,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME

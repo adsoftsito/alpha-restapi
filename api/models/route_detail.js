@@ -22,13 +22,31 @@ module.exports = (sequelize, DataTypes) => {
           },
 
           status: {
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
 
           },
           position: {
                         type: DataTypes.INTEGER
                 },
           
+          orderdetaildescription: {
+            type: DataTypes.STRING
+          }, 
+          
+          category : {
+            type: DataTypes.STRING
+
+          },
+          
+          type : {
+            type: DataTypes.STRING
+
+          },
+          orderdetailmessage : {
+            type: DataTypes.STRING
+
+          }
+
         
  }, {
     freezeTableName: true // Model tableName will be the same as the model name

@@ -217,7 +217,7 @@ alter table public.company_place add constraint company_place_companyid_fkey for
 
 */
 
--- drop table routes
+-- drop table route
 /*
 CREATE TABLE public.route
 (
@@ -227,7 +227,15 @@ CREATE TABLE public.route
   customerid character varying(20) NOT NULL,
   placesource  character varying(20), 
   placetarget  character varying(20), 
-  
+
+  sourceaddr character varying(100) NOT NULL,
+  targetaddr character varying(100) NOT NULL,
+  km numeric not null,
+  lt numeric not null,
+  km_lt numeric not null,
+  price_lt numeric not null,
+  cost numeric not null,
+
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
  CONSTRAINT route_pkey PRIMARY KEY (routeid)
@@ -237,7 +245,7 @@ WITH (
 );
 ALTER TABLE public.route
   OWNER TO adsoft;
--- select * from customer
+-- select * from ROUTE
 /*
 alter table public.route add constraint route_companyid_fkey foreign key (companyid) references public.company(companyid); 
 alter table public.route add constraint route_customerid_fkey foreign key (customerid) references public.customer(customerid); 
@@ -248,7 +256,17 @@ alter table public.route add constraint route_placetarget_fkey foreign key (plac
 --select * from company_places
 --
 /*
-insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r01','hesa', 'ING-01', 'pol','motum'); 
+insert into route(routeid, companyid, customerid, placesource, placetarget,  sourceaddr,
+  targetaddr ,
+  km  ,
+  lt  ,
+  km_lt  ,
+  price_lt  ,
+  cost 
+) 
+
+values ('r01','hesa', 'ING-01', 'pol','motum', 'pol addr', 'motum addr', 10, 2,  3, 20, 200); 
+
 insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r02','hesa', 'KIM-01', 'motum','pol'); 
 select * from route
 */
@@ -262,10 +280,12 @@ CREATE TABLE public.route_detail
   routedetailid character varying(20) NOT NULL,
   routeid character varying(20) NOT NULL,
   placeid      character varying(20),
-  category      character varying(20),
-  type      character varying(20), 
   status       character varying(1), 
   position        integer,
+  orderdetaildescription character varying(200) NOT NULL,
+  category      character varying(20),
+  type      character varying(20), 
+  orderdetailmessage character varying(200) NOT NULL, 
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
  CONSTRAINT route_detail_pkey PRIMARY KEY (routedetailid)
@@ -283,10 +303,12 @@ alter table public.route_detail add constraint routedetail_placeid_fkey foreign 
 */
 -- 
 /*
-insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-01','r01', 'pol', '1', 1);
-insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-02','r01', 'cas', '1', 2);
-insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-03','r01', 'par', '1', 3);
-insert into route_detail(routedetailid, routeid, placeid, status, position) values ('r01-04','r01', 'motum', '1', 4);
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage)
+
+ values ('r01-01','r01', 'pol', '1', 1, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-02','r01', 'cas', '1', 2, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-03','r01', 'par', '1', 3, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-04','r01', 'motum', '1', 4, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
 select * from company_place
 */
 -- 
@@ -443,6 +465,8 @@ select * from customer_product
 --
 */
 
+-- drop table public.order
+-- drop table public.order_detail
 
 
 /*
@@ -459,10 +483,10 @@ CREATE TABLE public.order
   trailerid2 character varying(20)  NULL,
 
   zone character varying(20)  NULL,
-  assigndate date NOT NULL DEFAULT ('now'::text)::date,
-  teadate date NOT NULL DEFAULT ('now'::text)::date,
-  enddate date NOT NULL DEFAULT ('now'::text)::date,
-  teastatus varying(20) not null,
+  assigndate TIMESTAMP NOT NULL DEFAULT ('now'::text)::TIMESTAMP,
+  teadate TIMESTAMP NOT NULL DEFAULT ('now'::text)::TIMESTAMP,
+  enddate TIMESTAMP NOT NULL DEFAULT ('now'::text)::TIMESTAMP,
+  teastatus character varying(20) not null,
 
     
   source character varying(100) NOT NULL,
@@ -521,10 +545,11 @@ alter table public.order add constraint order_orderstatusid_fkey foreign key (or
 
    source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid, orderadminid, orderstatusid) 
  values ('hesa', 'ING-01', 1, 'op-01', 'TR-890', 'R-01', 'D-01', 'R-02', 
- 'zone1', 'status 1',
+ 'Zona Centro', 'A tiempo',
  
   'Poliforum', 'Ote 7 col centro orizaba, ver.', 'motum', 'camino nacional 150, ixtaczoquitlan, ver', 10.5, 2, 5, 20.05, 200.10,
  'r01', 1, 1);
+
  
 insert into public.order(companyid, customerid, orderid, driverid, truckid, trailerid1, dollyid, trailerid2, 
  source,  sourceaddr,  target, targetaddr, km, lt, km_lt, price_lt, cost,routeid,
@@ -602,42 +627,43 @@ references public.product_unit(productunitid);
 -- select * from order_detail
 -- select * from customer_product
 -- drop table product_unit
+-- select * from route_detail
 select * from route
 select * from route_detail
 select * from company_place
 select * from customer_product
-/*
- insert into public.order_detail(
-  companyid,
-  customerid,
-  orderid,
-  orderdetailid,
-  
-  routedetailid,
-  orderdetaildescription,
-  category,
-  type, 
-  orderdetailmessage,
-  orderdetailarrivedate,
-  orderdetailactivity,
-  
-  orderdetailproductid,
-  orderdetailproductdescription,
-  orderdetailproductquantity,
-  orderdetailproductunitid,
-  orderdetailproductunitdescription,
-  orderdetailstatus,
+	/*
+	 insert into public.order_detail(
+	  companyid,
+	  customerid,
+	  orderid,
+	  orderdetailid,
+	  
+	  routedetailid,
+	  orderdetaildescription,
+	  category,
+	  type, 
+	  orderdetailmessage,
+	  orderdetailarrivedate,
+	  orderdetailactivity,
+	  
+	  orderdetailproductid,
+	  orderdetailproductdescription,
+	  orderdetailproductquantity,
+	  orderdetailproductunitid,
+	  orderdetailproductunitdescription,
+	  orderdetailstatus,
 
-  signsnumber,
-  picturesnumber,
-  commentsnumber,
-  qrsnumber,
-  codebarsnumber
+	  signsnumber,
+	  picturesnumber,
+	  commentsnumber,
+	  qrsnumber,
+	  codebarsnumber
 
 
-  ) 
-  values ('hesa', 'ING-01', 1, 1, 'r01-01', 'poliforum', 'base', 'planta', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
-     'p-01', 'azucar', 100, 1, 'saco', '1', 0, 0, 0, 0, 0);
+	  ) 
+	  values ('hesa', 'ING-01', 2, 1, 'r01-01', 'poliforum', 'base', 'planta', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
+	     'p-01', 'azucar', 100, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
 
  insert into public.order_detail(
@@ -667,7 +693,7 @@ select * from customer_product
   qrsnumber,
   codebarsnumber
   ) 
-  values ('hesa', 'ING-01', 1, 2, 'r01-02', 'caseta de fortin', 'logistico', 'agencia', 'caseta proxima, bajar velocidad', '2018-11-08', 'viajando', 
+  values ('hesa', 'ING-01', 2, 2, 'r01-02', 'caseta de fortin', 'logistico', 'agencia', 'caseta proxima, bajar velocidad', '2018-11-08', 'viajando', 
      'p-01', 'azucar', 80, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
 
@@ -697,12 +723,14 @@ select * from customer_product
   commentsnumber,
   qrsnumber,
   codebarsnumber) 
-  values ('hesa', 'ING-01', 1, 3, 'r01-03', 'parada autorizada', 'operacion', 'planta', 'parada autorizada', '2018-11-09', 'descargando', 
+  values ('hesa', 'ING-01', 2, 3, 'r01-03', 'parada autorizada', 'operacion', 'planta', 'parada autorizada', '2018-11-09', 'descargando', 
      'p-01', 'azucar', 50, 1, 'saco', '1', 0, 0, 0, 0, 0);
 
-
-select * from public.order_detail
-
+-- delete from public.order_detail
+-- select * from public.order
+-- select * from public.order_detail
+-- update public.order_detail set orderid=2
+-- update public.order set orderid=2
 */
 
 select * from public.order

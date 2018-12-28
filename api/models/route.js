@@ -26,8 +26,37 @@ module.exports = (sequelize, DataTypes) => {
                 },
           placetarget: {
                   type: DataTypes.STRING
+          },
+
+          sourceaddr : {
+            type: DataTypes.STRING
+
+          }, 
+          targetaddr : {
+            type: DataTypes.STRING
+
+          },
+          km : {
+            type: DataTypes.NUMERIC
+
+          },
+          lt : {
+            type: DataTypes.NUMERIC
+
+          },
+          km_lt : {
+            type: DataTypes.NUMERIC
+
+          },
+          price_lt : {
+            type: DataTypes.NUMERIC
+
+          },
+          cost : {
+            type: DataTypes.NUMERIC 
+
           }
-        
+                
  }, {
     freezeTableName: true // Model tableName will be the same as the model name
   });
