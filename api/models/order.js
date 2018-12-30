@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING
         },
         orderid: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            primaryKey: true
+
         },
         driverid: {
               type: DataTypes.STRING

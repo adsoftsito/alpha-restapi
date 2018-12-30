@@ -1,4 +1,10 @@
-﻿select * from company;
+﻿--select * from company;
+-- delete from public.order where orderid=3
+-- select * from public.order
+-- select * from public.order_detail
+/*-
+INSERT INTO "order_detail" ("id","companyid","customerid","orderid","orderdetailid","routedetailid","orderdetaildescription","orderdetailmessage","orderdetailarrivedate","orderdetailactivity","orderdetailproductid","orderdetailproductdescription","orderdetailproductquantity","orderdetailproductunitid","orderdetailproductunitdescription","orderdetailstatus","signsnumber","picturesnumber","commentsnumber","qrsnumber","codebarsnumber","createdAt","updatedAt") VALUES (11,'hesa','ING-01',6,10,'r01-01','aa','aa','2018-12-10','aa','1','aa','1','1','1','1',1,1,1,1,1,'2018-12-30 05:58:45.188 +00:00','2018-12-30 05:58:45.188 +00:00')
+*/
 
 /*
 -- drop table company
@@ -309,10 +315,14 @@ insert into route_detail(routedetailid, routeid, placeid, status, position, orde
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-02','r01', 'cas', '1', 2, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-03','r01', 'par', '1', 3, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-04','r01', 'motum', '1', 4, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-05','r01', 'motum', '1', 5, 'Comedor la fondita', 'Operacion', 'Comedor', 'Debe estar maximo una hora');
+
 select * from company_place
 */
--- 
-
+-- update route_detail set orderdetaildescription= 'Base de transportes', category = 'Base', type= 'Planta', orderdetailmessage= '-' where id=2
+-- update route_detail set orderdetaildescription= 'Almacen de material', category = 'Logistico', type= 'Agencia', orderdetailmessage= '-' where id=3
+-- update route_detail set orderdetaildescription= 'Estacion de servicio', category = 'Logistico', type= 'Territorio', orderdetailmessage= 'Lugar asignado para carga de combustible' where id=4
+-- update route_detail set orderdetaildescription= 'Planta de arroz', category = 'Operacion', type= 'Ruta', orderdetailmessage= 'Debe hacer fila' where id=5
 	
 /*
 -- drop table driver
@@ -566,6 +576,7 @@ insert into public.order(companyid, customerid, orderid, driverid, truckid, trai
 -- select * from public.order
 -- select * from public.route
 -- select * from public.route_detail
+-- drop table public.order_detail
 -- select * from public.order_detail
 /*
 CREATE TABLE public.order_detail
@@ -601,7 +612,7 @@ CREATE TABLE public.order_detail
 
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
-  CONSTRAINT order_detail_pkey PRIMARY KEY (orderdetailid)
+  CONSTRAINT order_detail_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE

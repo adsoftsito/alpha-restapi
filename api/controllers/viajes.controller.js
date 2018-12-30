@@ -168,34 +168,69 @@ function getOrderDetailbyId(req, res) {
 }
 
 
-function createOrder(req, res) {
+function addViaje(req, res) {
   //console.log("operadores.controller getOperadorById");
   try {
 
-    //console.log(req.swagger.params.id.value);
-    //var id = req.swagger.params.id.value;
+    console.log("params : ");
+    var myorder = req.body.order;
+    var myorderdetails = req.body.orderdetail;
+
+    console.log("order ... ");
+
+    console.log(myorder);
+    console.log("details ... ");
+   
+    console.log(myorderdetails);
+  
+    
+    var mycompanyid = 'hesa';//req.swagger.params.myorder.orderid.value;
    
     console.log("create order...");
-    //console.log(order_detail);
-/*
+    console.log(myorder.orderid);
+    console.log("create order...");
+
       return order
         .create({
-          companyid: req.body.companyid,
-          customerid: req.body.course_name,
-          orderid: req.body.course_name,
-          driverid: req.body.course_name,
-          truckid: req.body.course_name,
-          trailerid1: req.body.course_name,
-          dollyid: req.body.course_name,
-          trailerid2: req.body.course_name,
+          companyid: 'hesa',
+          customerid: 'ING-01',
+          orderid: myorder.orderid,
+          driverid: 'op-01',
+          truckid: 'TR-890',
+          trailerid1: 'R-01',
+          dollyid: 'D-01',
+          trailerid2: 'R-02',
+          zone: "Zona Centro",
+          assigndate: "2018-12-28 07:06:17",
+          teadate: "2018-12-28T07:06:17.11",
+          enddate: "2018-12-28T07:06:17.11",
+          teastatus: "A tiempo",
+          source: "x",
+          sourceaddr: "xxx",
+          target: "yyy",
+          targetaddr: "999",
+          km: "10",
+          lt: "9",
+          km_lt: "8",
+          price_lt: "7",
+          cost: "6",
+          routeid: "r01",
+          orderadminid: 4,
+          orderstatusid: 1,
+          orderdetail : myorderdetails
 
+        }, {
+          include: [{
+            model: order_detail,
+            as: 'orderdetail'
+          }]
         })
         .then((myorder) => res.status(201).send(myorder))
         .catch((error) => res.status(400).send(error));
     
 
-*/
-  return order
+
+/*  return order
     .create({
       order: req.body.order,
       orderdetails: req.body.orderdetails,
@@ -207,10 +242,10 @@ function createOrder(req, res) {
     })
     .then((myorder) => res.status(201).send(myorder))
     .catch((error) => res.status(400).send(error));
-
+*/
   } catch (error) {
     console.log("Was an error");
-    controllerHelper.handleErrorResponse(MODULE_NAME, getOrderDetailbyId.name, error, res);
+    controllerHelper.handleErrorResponse(MODULE_NAME, addViaje.name, error, res);
   }
 }
 
@@ -218,6 +253,7 @@ module.exports = {
   getOrders,
   getOrderbyId,
   getOrderDetailbyId,
+  addViaje,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME

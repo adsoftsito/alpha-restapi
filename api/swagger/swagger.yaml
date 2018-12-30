@@ -812,8 +812,8 @@ definitions:
   ViajeDetail:
     type: object
     properties:
-      id:
-        type: number
+ #     id:
+ #       type: number
       companyid:
         type: string
       customerid:
@@ -844,6 +844,17 @@ definitions:
         type: string      
       orderdetailstatus:
         type: string
+      signsnumber: 
+        type: number
+      picturesnumber: 
+        type: number
+      commentsnumber: 
+        type: number
+      qrsnumber: 
+        type: number
+      codebarsnumber: 
+        type: number
+         
 #    example:
 #      codigo: 100
 #      descripcion: 'viaje demo 1'

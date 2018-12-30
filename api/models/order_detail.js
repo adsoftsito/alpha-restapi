@@ -2,11 +2,11 @@
 module.exports = (sequelize, DataTypes) => {
  
     const order_detail = sequelize.define('order_detail', {
-        id: {
+       /* id: {
           type: DataTypes.INTEGER,
           primaryKey: true
         },
-
+*/
         companyid: {
           type: DataTypes.STRING
         },
