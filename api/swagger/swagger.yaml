@@ -212,7 +212,17 @@ paths:
 
   /viajes:
     x-swagger-router-controller: viajes.controller
-
+    options:
+      responses:
+        default:
+          description: CORS headers for all operations
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: localhost:4200
+            Access-Control-Allow-Headers:
+              type: string
+              default: X-UA-Compatible, X-XSS-Protection
     get:
       tags:
       - viajes

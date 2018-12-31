@@ -9,6 +9,8 @@ var config = {
   appRoot: __dirname // required config
 };
 
+
+
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
 
