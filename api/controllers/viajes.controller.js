@@ -169,6 +169,11 @@ function getOrderDetailbyId(req, res) {
 
 
 function addViaje(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); // If needed
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
   //console.log("operadores.controller getOperadorById");
   try {
 
@@ -229,20 +234,6 @@ function addViaje(req, res) {
         .catch((error) => res.status(400).send(error));
     
 
-
-/*  return order
-    .create({
-      order: req.body.order,
-      orderdetails: req.body.orderdetails,
-    }, {
-      include: [{
-        model: order_detail,
-        as: 'orderdetails'
-      }]
-    })
-    .then((myorder) => res.status(201).send(myorder))
-    .catch((error) => res.status(400).send(error));
-*/
   } catch (error) {
     console.log("Was an error");
     controllerHelper.handleErrorResponse(MODULE_NAME, addViaje.name, error, res);
