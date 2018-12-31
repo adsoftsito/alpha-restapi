@@ -3,7 +3,7 @@
 -- select * from public.order
 -- select * from public.order_detail
 /*-
-INSERT INTO "order_detail" ("id","companyid","customerid","orderid","orderdetailid","routedetailid","orderdetaildescription","orderdetailmessage","orderdetailarrivedate","orderdetailactivity","orderdetailproductid","orderdetailproductdescription","orderdetailproductquantity","orderdetailproductunitid","orderdetailproductunitdescription","orderdetailstatus","signsnumber","picturesnumber","commentsnumber","qrsnumber","codebarsnumber","createdAt","updatedAt") VALUES (11,'hesa','ING-01',6,10,'r01-01','aa','aa','2018-12-10','aa','1','aa','1','1','1','1',1,1,1,1,1,'2018-12-30 05:58:45.188 +00:00','2018-12-30 05:58:45.188 +00:00')
+INSERT INTO "order_detail" ("id","companyid","customerid","orderid","orderdetailid","routedetailid","orderdetaildescription","orderdetailmessage","orderdetailarrivedate","orderdetailactivity","orderdetailproductid","orderdetailproductdescription","orderdetailproductquantity","orderdetailproductunitid","orderdetailproductunitdescription","orderdetailstatus","signsnumber","picturesnumber","commentsnumber","qrsnumber","codebarsnumber","createdAt","updatedAt") VALUES (NULL,'hesa','ING-01',3,10,'r01-01','aa','aa','2018-12-10','aa','p-01','aa','1','1','1','1',1,1,1,1,1,'2018-12-30 06:50:48.801+00:00','2018-12-30 06:50:48.801 +00:00')
 */
 
 /*
