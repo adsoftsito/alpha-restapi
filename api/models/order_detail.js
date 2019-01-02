@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
         routedetailid: {
                     type: DataTypes.STRING
             },
+        category: {
+            type: DataTypes.STRING
+        },
+        type: {
+            type: DataTypes.STRING
+        },
         orderdetaildescription: {
                     type: DataTypes.STRING
             },

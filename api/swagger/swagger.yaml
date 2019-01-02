@@ -758,6 +758,10 @@ definitions:
 #      id:
 #        type: integer
 #        format: int64
+      companyid:
+        type: string
+      customerid:
+        type: string
       orderid:
         type: integer
       driverid:
@@ -836,6 +840,10 @@ definitions:
       orderdetailid:
         type: number
       routedetailid:
+        type: string
+      category:
+        type: string
+      type:
         type: string
       orderdetaildescription:
         type: string
