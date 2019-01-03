@@ -1,5 +1,8 @@
 ﻿--select * from company;
--- delete from public.order where orderid=3
+--
+-- delete from public.order where orderid<>2
+-- delete from public.order_detail where orderid<>2
+
 -- select * from public.order
 -- select * from public.order_detail where orderid=447722
 /*
@@ -230,6 +233,15 @@ alter table public.company_place add constraint company_place_companyid_fkey for
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
   values  ('motum', 'hesa', 'tecnomotum sa de cv', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
 
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('motum', 'hesa', 'tecnomotum sa de cv', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('coatza', 'hesa', 'Coatzacoalcos', 'Parque industrial Pajaritos', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('villahermosa', 'hesa', 'Villa Hermosa', 'Parque industrial Villa hermos', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
+
 */
 
 -- drop table route
@@ -282,7 +294,17 @@ insert into route(routeid, companyid, customerid, placesource, placetarget,  sou
 
 values ('r01','hesa', 'ING-01', 'pol','motum', 'pol addr', 'motum addr', 10, 2,  3, 20, 200); 
 
-insert into route(routeid, companyid, customerid, placesource, placetarget) values ('r02','hesa', 'KIM-01', 'motum','pol'); 
+insert into route(routeid, companyid, customerid, placesource, placetarget,  sourceaddr,
+  targetaddr ,
+  km  ,
+  lt  ,
+  km_lt  ,
+  price_lt  ,
+  cost 
+) 
+
+values ('r02','hesa', 'ING-01', 'coatza','villahermosa', 'Coatza addr', 'Villa addr', 10, 2,  3, 20, 200); 
+
 select * from route
 */
 
@@ -319,12 +341,21 @@ alter table public.route_detail add constraint routedetail_placeid_fkey foreign 
 -- 
 /*
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage)
+values ('r01-01','r01', 'pol', '1', 1, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) 
+values ('r01-02','r01', 'cas', '1', 2, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) 
+values ('r01-03','r01', 'par', '1', 3, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) 
+values ('r01-04','r01', 'motum', '1', 4, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) 
+values ('r01-05','r01', 'motum', '1', 5, 'Comedor la fondita', 'Operacion', 'Comedor', 'Debe estar maximo una hora');
 
- values ('r01-01','r01', 'pol', '1', 1, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
-insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-02','r01', 'cas', '1', 2, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
-insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-03','r01', 'par', '1', 3, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
-insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-04','r01', 'motum', '1', 4, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
-insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage) values ('r01-05','r01', 'motum', '1', 5, 'Comedor la fondita', 'Operacion', 'Comedor', 'Debe estar maximo una hora');
+
+----------
+
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage)
+values ('r02-01','r02', 'coatza', '1', 1, 'Almacen', 'Logistico', 'Base', 'Debe hacer fila');
 
 select * from company_place
 */

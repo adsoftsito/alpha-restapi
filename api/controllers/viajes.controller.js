@@ -1,5 +1,13 @@
 'use strict';
 
+var PubNub = require('pubnub')
+var pubnub = new PubNub({
+    subscribeKey: "sub-c-6b07c230-8558-11e8-9083-323d8442fcf0",
+    publishKey: "pub-c-af5bb6a9-28ee-4111-b657-044aa57f469f",
+    secretKey: "sec-c-M2I2ZDYwMTktOWQwNy00ZDg0LWFjYmQtMzhiZmIxNDQxYjIy",
+    ssl: true
+})
+
 const _ = require('lodash');
 const util = require('util');	// Required in swagger sample controller
 var shortid = require('shortid');
@@ -230,7 +238,42 @@ function addViaje(req, res) {
             as: 'orderdetail'
           }]
         })
-        .then((myorder) => res.status(201).send(myorder))
+        .then((myorder) => {
+          res.status(201).send(myorder);
+
+          pubnub.publish(
+            {
+                message: { 
+                  
+                                                 codigo: myorder.orderid, 
+                                                 descripcion: myorder.targetaddr, 
+                                                 origen: myorder.source, 
+                                                 destino : myorder.target 
+      
+      
+      
+              },
+                channel: 'hello_world',
+                 sendByPost: false, // true to send via post
+                storeInHistory: false, //override default storage options
+                meta: { 
+                    "cool": "meta"
+                }   // publish extra meta with the request
+            }, 
+            function (status, response) {
+                if (status.error) {
+                    // handle error
+                    console.log(status)
+                } else {
+                    console.log("message Published w/ timetoken", response.timetoken)
+                }
+            }
+           );
+       
+      
+          
+        }
+        )
         .catch((error) => res.status(400).send(error));
     
 
