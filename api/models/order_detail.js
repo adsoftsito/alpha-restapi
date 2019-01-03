@@ -75,6 +75,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         codebarsnumber : {
           type: DataTypes.INTEGER
+        },
+        lat:	{		        
+          type: DataTypes.STRING
+        },
+        lng: {	
+          type: DataTypes.STRING
+        },
+        radio: {
+          type: DataTypes.STRING
+        },
+        polygon: {
+          type: DataTypes.STRING
         }
               
  }, {

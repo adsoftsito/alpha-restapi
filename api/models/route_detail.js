@@ -45,6 +45,12 @@ module.exports = (sequelize, DataTypes) => {
           orderdetailmessage : {
             type: DataTypes.STRING
 
+          },
+          lat : {
+            type: DataTypes.STRING
+          },
+          lng : {
+            type: DataTypes.STRING
           }
 
         

@@ -176,6 +176,48 @@ function getOrderDetailbyId(req, res) {
 }
 
 
+function updateViaje(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,contenttype'); // If needed
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  //console.log("operadores.controller getOperadorById");
+  try {
+
+    console.log("params : ");
+    var myorderid = req.body.orderid;
+    var mystatusadmin = req.body.orderadminid;
+    var mystatusoper  = req.body.orderstatusid;
+
+    order
+    .findOne({ where: {orderid: myorderid} })
+      .then(myoper => {
+        console.log("Result of findById: " + myoper);
+        if (!myoper) {
+          res.status(401).send(({}));
+        
+        }
+        return myoper
+          .update({ 
+            orderadminid: mystatusadmin, 
+            orderstatusid: mystatusoper 
+           })
+          .then(() => res.status(200).send(myoper) )
+          .catch(error => res.status(403).send(error));
+        })
+      .catch(error => {
+          console.log("There was an error: " + error);
+          resolve(error);
+    });
+
+  } catch (error) {
+      console.log("Was an error");
+      controllerHelper.handleErrorResponse(MODULE_NAME, updateStatusAdmin.name, error, res);
+  }
+
+}
+
 function addViaje(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
@@ -245,15 +287,15 @@ function addViaje(req, res) {
             {
                 message: { 
                   
-                                                 codigo: myorder.orderid, 
-                                                 descripcion: myorder.targetaddr, 
+                                                 codigo: myorder.orderid,                                                   
                                                  origen: myorder.source, 
-                                                 destino : myorder.target 
-      
+                                                 destino : myorder.target,
+                                                 origendir : myorder.sourceaddr, 
+                                                 destinodir : myorder.targetaddr
       
       
               },
-                channel: 'hello_world',
+                channel: 'alphadriver.*',
                  sendByPost: false, // true to send via post
                 storeInHistory: false, //override default storage options
                 meta: { 
@@ -288,6 +330,7 @@ module.exports = {
   getOrderbyId,
   getOrderDetailbyId,
   addViaje,
+  updateViaje,
   GS_CT_ERR_GAMESYSTEM_NOT_FOUND,
   GS_CT_DELETED_SUCCESSFULLY,
   MODULE_NAME

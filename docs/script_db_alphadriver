@@ -310,6 +310,12 @@ select * from route
 
 
 -- drop table route_detail
+-- select * from route_detail
+/*
+ALTER TABLE public.route_detail ADD COLUMN lat numeric ;
+ALTER TABLE public.route_detail ADD COLUMN lng numeric ;
+
+*/
 /*
 CREATE TABLE public.route_detail
 (
@@ -323,6 +329,8 @@ CREATE TABLE public.route_detail
   category      character varying(20),
   type      character varying(20), 
   orderdetailmessage character varying(200) NOT NULL, 
+  lat      numeric,
+  lng      numeric, 
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
  CONSTRAINT route_detail_pkey PRIMARY KEY (routedetailid)
@@ -552,6 +560,8 @@ CREATE TABLE public.order
   routeid character varying(20) NOT NULL,
   orderadminid integer not null,  
   orderstatusid integer not null,
+
+  
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
   CONSTRAINT order_pkey PRIMARY KEY (orderid)
@@ -650,6 +660,11 @@ CREATE TABLE public.order_detail
   qrsnumber integer NOT NULL,
   codebarsnumber integer NOT NULL,
 
+  lat			        numeric NOT NULL,
+  lng			        numeric NOT NULL,
+  radio			        numeric NOT NULL,
+  polygon 	character	varying(20000) NOT NULL,
+  
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,  
   CONSTRAINT order_detail_pkey PRIMARY KEY (id)
@@ -709,12 +724,16 @@ select * from customer_product
 	  picturesnumber,
 	  commentsnumber,
 	  qrsnumber,
-	  codebarsnumber
+	  codebarsnumber,
+	  lat,
+	  lng,
+	  radio,
+	  polygon
 
 
 	  ) 
-	  values ('hesa', 'ING-01', 2, 1, 'r01-01', 'poliforum', 'base', 'planta', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
-	     'p-01', 'azucar', 100, 1, 'saco', '1', 0, 0, 0, 0, 0);
+	  values ('hesa', 'ING-01', 1, 1, 'r01-01', 'poliforum', 'base', 'planta', 'inicio de viaje, ajustar cinturon', '2018-11-07', 'descargando', 
+	     'p-01', 'azucar', 100, 1, 'saco', '1', 0, 0, 0, 0, 0, 90.8765353, -120.948476, 100, '[]');
 
 
  insert into public.order_detail(

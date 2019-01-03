@@ -3,8 +3,8 @@ info:
   version: "0.0.1"
   title: Game Collector App
 # during dev, should point to your local machine
-host: localhost:10010
-#host: advance-path-222122.appspot.com
+#host: localhost:10010
+host: advance-path-222122.appspot.com
 x-google-endpoints:
 - name: 'advance-path-222122.appspot.com'
   allowCors: 'true'
@@ -237,6 +237,7 @@ paths:
             $ref: "#/definitions/GetViajeListResponse"
         404:
           description: "Viajes not found"
+
     post:
       tags:
       - viajes
@@ -252,12 +253,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Order'
-
-          #name: orderdet
-          #description: Viaje object that needs to be added
-          #required: true
-          #schema:
-          #  $ref: '#/definitions/GetViajeDetailListResponse'
       responses:
         '200':
           description: successful operation
@@ -265,6 +260,29 @@ paths:
             $ref: '#/definitions/Viaje'
         '400':
           description: Invalid Order
+
+    put:
+      tags:
+      - viajes
+      description: "actualiza un viaje"
+      operationId: "updateViaje"
+      produces:
+      - "application/json"
+      parameters:
+        - in: body
+
+          name: myorder
+          description: Viaje object that needs to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/OrderStatus'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/OrderStatus'
+        '400':
+          description: Invalid OrderStatus
 
   '/viajes/{id}':
     x-swagger-router-controller: viajes.controller
@@ -751,6 +769,16 @@ definitions:
         items:
           $ref: "#/definitions/Truck"
 
+  OrderStatus:
+    type: object
+    properties:
+      orderid:
+        type: integer
+      orderadminid:
+        type: integer
+      orderstatusid:
+        type: integer
+
 
   Viaje:
     type: object
@@ -875,7 +903,15 @@ definitions:
         type: number
       codebarsnumber: 
         type: number
-         
+      lat:			        
+        type: string
+      lng:	
+        type: string
+      radio:
+        type: string
+      polygon:
+        type: string
+ 
 #    example:
 #      codigo: 100
 #      descripcion: 'viaje demo 1'
