@@ -903,9 +903,9 @@ definitions:
         type: number
       codebarsnumber: 
         type: number
-      lat:			        
+      lat:
         type: string
-      lng:	
+      lng:
         type: string
       radio:
         type: string
