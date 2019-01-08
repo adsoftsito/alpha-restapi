@@ -295,7 +295,7 @@ function addViaje(req, res) {
       
       
               },
-                channel: 'alphadriver.*',
+                channel: 'hello_world',
                  sendByPost: false, // true to send via post
                 storeInHistory: false, //override default storage options
                 meta: { 
