@@ -105,9 +105,12 @@ function getOrderbyId(req, res) {
     console.log("viajes by id...");
     console.log(order);
 
-   order.findById(id,
-      { 
-        include: [{ all: true, nested: true }]
+    order.findOne(
+      {
+      where: {
+        orderid: id
+      },
+      include: [{ all: true, nested: true }]
       }
     ).then(orders => {
     console.log(orders);
@@ -287,15 +290,15 @@ function addViaje(req, res) {
             {
                 message: { 
                   
-                                                 codigo: myorder.orderid,                                                   
-                                                 origen: myorder.source, 
-                                                 destino : myorder.target,
-                                                 origendir : myorder.sourceaddr, 
-                                                 destinodir : myorder.targetaddr
+                    codigo: myorder.orderid,                                                   
+                    origen: myorder.source, 
+                    destino : myorder.target,
+                    origendir : myorder.sourceaddr, 
+                    destinodir : myorder.targetaddr
       
       
               },
-                channel: 'hello_world',
+                channel: 'alphadriver.plataforma' + idcliente + idusuario,
                  sendByPost: false, // true to send via post
                 storeInHistory: false, //override default storage options
                 meta: { 

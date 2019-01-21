@@ -3,8 +3,11 @@
 -- delete from public.order where orderid<>2
 -- delete from public.order_detail where orderid<>2
 
--- select * from public.order
--- select * from public.order_detail where orderid=447722
+-- select * from public.order where orderid<>11111
+-- select * from public.order_detail where orderi
+-- delete from public.order_detail where orderid<>11111
+-- delete from public.order where orderid<>11111
+
 /*
 INSERT INTO "order" ("companyid","customerid","orderid","driverid","truckid","trailerid1","dollyid",
 "trailerid2","zone","assigndate","teadate","enddate","teastatus","source","sourceaddr",
@@ -222,8 +225,11 @@ alter table public.company_place add constraint company_place_companyid_fkey for
 -- delete from public.route
 -- select * from public.route
 -- delete from company_place
--- select * from company_place
+-- select * from company_place where id=23
 /*
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('Cedis Wallmart', 'hesa', 'Destino', 'Km 280 Villa Hermosa Tabasco', 'caseta proxima, reducir velocidad', '0', 20.987665, -95.464673, 500, '[{}]');
+
 
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
   values  ('Base de Transportes', 'hesa', 'Origen ruta ', 'Pte 7 100, Coatzacoalcos, ver', 'inicio de viaje, ajustar cinturon', '0', 20.987665, -95.464673, 100, '[{}]');
@@ -294,7 +300,8 @@ WITH (
 );
 ALTER TABLE public.route
   OWNER TO adsoft;
--- select * from ROUTE
+-- select * from ROUTE where routeid='r01'
+-- update ROUTE set placetarget='Cedis Wallmart' where routeid='r01'
 /*
 alter table public.route add constraint route_companyid_fkey foreign key (companyid) references public.company(companyid); 
 alter table public.route add constraint route_customerid_fkey foreign key (customerid) references public.customer(customerid); 
@@ -374,7 +381,13 @@ alter table public.route_detail add constraint routedetail_placeid_fkey foreign 
 */
 -- 
 -- select * from company_place
--- select * from public.route_detail
+-- select * from public.route_detail where routeid='r01' and routedetailid='r01-01'
+-- update  public.route_detail set orderdetaildescription='Kimberly Orizaba' where routeid='r01' and routedetailid='r01-01'
+
+-- select * from public.route_detail where routeid='r01' and routedetailid='r01-06'
+-- update  public.route_detail set placeid= 'Cedis Wallmart', orderdetaildescription='Cedis Wallmart' where routeid='r01' and routedetailid='r01-06'
+
+
 -- delete from public.route_detail
 /*
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng)
@@ -458,6 +471,13 @@ ALTER TABLE public.driver
    values ('op-02', 'alejandro', 'reyes', '090000007770099',  'C', '2022-08-20', 'hesa', '998877', 'jr.adsoft@live.com.mx', '112233');
 */
 -- select * from driver
+-- select * from driver where driverid = 'op-01'
+-- update driver set name = 'Adolfo Centeno' where driverid = 'op-01'
+-- update driver set name = 'Mauricio Buenavista' where driverid = 'op-01'
+-- update driver set name = 'Mauricio Buenavista' where driverid = 'op-03'
+
+-- select * from driver where driverid = 'op-02'
+-- update driver set name = 'Leonardo Guzman' where driverid = 'op-02'
 
 /*
 
@@ -486,7 +506,7 @@ ALTER TABLE public.orderstatusadmin
 
 */
 -- select * from orderstatusadmin
--- update orderstatusadmin set description='Cancelado' where id=4
+-- update orderstatusadmin set description='Finalizado' where id=4
 
 
 /*
