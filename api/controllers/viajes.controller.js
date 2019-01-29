@@ -298,8 +298,9 @@ function addViaje(req, res) {
       
       
               },
-                channel: 'alphadriver.plataforma' + idcliente + idusuario,
-                 sendByPost: false, // true to send via post
+                //channel: 'alphadriver.plataforma' + idcliente + idusuario,
+                channel: 'hello_world',                
+                sendByPost: false, // true to send via post
                 storeInHistory: false, //override default storage options
                 meta: { 
                     "cool": "meta"

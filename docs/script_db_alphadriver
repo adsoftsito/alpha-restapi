@@ -269,6 +269,21 @@ alter table public.company_place add constraint company_place_companyid_fkey for
   insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
   values  ('Ricolino SA de CV', 'hesa', 'Destino', 'Km 280 Villa Hermosa Tabasco', 'caseta proxima, reducir velocidad', '0', 20.987665, -95.464673, 500, '[{}]');
 
+
+ --------------------------
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('Poliforum Orizaba', 'hesa', 'Poliforum Orizaba', 'Pte 7 100, Coatzacoalcos, ver', 'inicio de viaje, ajustar cinturon', '0', 20.987665, -95.464673, 100, '[{}]');
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('Vias de ferrocarril', 'hesa', 'Vias de ferrocarril', 'col barrio nuevo, orizaba ver', 'parada autorizada, comedor 1', '2', 20.987665, -95.464673, 400, '[{}]');
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('Trebol de ixtac', 'hesa', 'Trebol de ixtac', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
+
+  insert into company_place(placeid, companyid, placedescription, placeaddress, placemessage, placetype, placelat, placelng, placeradius, placepolygon)
+  values  ('Tecnomotum', 'hesa', 'Tecnomotum', 'parque industrial ixtac', 'destino viaje', '0', 20.987665, -95.464673, 400, '[{}]');
+
  
 */
 
@@ -337,6 +352,17 @@ insert into route(routeid, companyid, customerid, placesource, placetarget,  sou
 ) 
 
 values ('r02','hesa', 'ING-01', 'Ingenio Cordoba','Ricolino SA de CV', 'Av 11 1000 Cordoba', 'Parque Ind Tlanepantla', 400, 200,  2, 21.5, 15000); 
+
+
+insert into route(routeid, companyid, customerid, placesource, placetarget,  sourceaddr,
+  targetaddr ,
+  km  ,
+  lt  ,
+  km_lt  ,
+  price_lt  ,
+  cost 
+) 
+values ('r03','hesa', 'ING-01', 'Poliforum Orizaba','Tecnomotum', 'Centro cultural poliforum orizaba', 'Tecnomotum S.A. de C.V. parque industrial ixtac', 400, 200,  2, 21.5, 15000); 
 
 select * from route
 */
@@ -409,7 +435,7 @@ insert into route_detail(routedetailid, routeid, placeid, status, position, orde
 values ('r01-06','r01', 'Empresa SA de CV', '1', 6, 'Empresa SA de CV', 'Base', 'Planta', '-', 17.980593, -92.951054);
 
 --------------
--- select * from public.company_place
+select * from public.company_place
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng)
 values ('r02-01','r02', 'Ingenio Cordoba', '1', 1, 'Ingenio Cordoba', 'Base', 'Planta', '-', 18.868802, -96.906878);
 
@@ -428,6 +454,19 @@ values ('r02-05','r02', 'Comedor la central', '1', 5, 'Comedor la central', 'Ope
 insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng)
 values ('r02-06','r02', 'Ricolino SA de CV', '1', 6, 'Ricolino SA de CV', 'Base', 'Planta', '-', 19.516669, -99.202150);
 
+--------------
+select * from public.company_place
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng)
+values ('r03-01','r03', 'Poliforum Orizaba', '1', 1, 'Poliforum Orizaba', 'Base', 'Planta', '-', 18.849016, -97.090476);
+
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng) 
+values ('r03-02','r03', 'Vias de ferrocarril', '1', 2, 'Vias de ferrocarril', 'Logistico', 'Agencia', '-', 18.852228, -97.080868);
+
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng)
+values ('r03-03','r03', 'Trebol de ixtac', '1', 3, 'Trebol de ixtac', 'Logistico', 'Territorio', 'Lugar asignado para carga de combustible', 18.858504, -97.071334);
+
+insert into route_detail(routedetailid, routeid, placeid, status, position, orderdetaildescription, category, type, orderdetailmessage, lat, lng) 
+values ('r03-04','r03', 'Tecnomotum', '1', 4, 'Tecnomotum', 'Operacion', 'Planta', 'Debe hacer fila', 18.862724, -97.050269);
 
 select * from company_place
 */
