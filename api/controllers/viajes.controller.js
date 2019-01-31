@@ -95,6 +95,36 @@ sequelize
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
+function getOrdersbyOper(req, res) {
+  //console.log("operadores.controller getOperadorById");
+  try {
+
+    console.log(req.swagger.params.driverid.value);
+    var driverid = req.swagger.params.driverid.value;
+   
+    console.log("viajes by oper...");
+    console.log(order);
+
+    order.findAll(
+      {
+      where: {
+        driverid: driverid,
+        orderadminid : [1,2]
+      },
+      //include: [{ all: true, nested: true }]
+      }
+    ).then(orders => {
+    console.log(orders);
+    res.status(200).send(orders);
+   })
+
+  } catch (error) {
+    console.log("Was an error");
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOrdersbyOper.name, error, res);
+  }
+}
+
+
 function getOrderbyId(req, res) {
   //console.log("operadores.controller getOperadorById");
   try {
@@ -331,6 +361,7 @@ function addViaje(req, res) {
 
 module.exports = {
   getOrders,
+  getOrdersbyOper,
   getOrderbyId,
   getOrderDetailbyId,
   addViaje,

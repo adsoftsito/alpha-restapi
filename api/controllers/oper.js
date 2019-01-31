@@ -6,6 +6,8 @@ var controllerHelper = require('../helpers/controller.helper');
 var messageHelper = require('../helpers/message.helper');
 var operadoresService = require('../services/operadores.service');
 var utils = require('../utils/writer.js');
+const { driver } = require('../models');	// Sequelize
+
 ////////////////////////////////////////////////////////////////////////////////
 // CONSTANTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,6 +26,39 @@ const GS_CT_DELETED_SUCCESSFULLY = 'Operador deleted successfully';
 ////////////////////////////////////////////////////////////////////////////////
 
 
+function getOperadoresNfc(req, res) {
+
+  try {
+    // Receiving parameters
+    var params = {
+      operadores_nfc: req.swagger.params.operadores_nfc.value
+    };
+
+    // Call to service
+
+    driver
+    .findOne({ where: {nfc: params.operadores_nfc} })
+    .then(mylicencia => {
+
+      //console.log(mylicencia);
+
+      if (!mylicencia) {
+        res.status(200).send({
+          message: 'Licencia Not Found'
+        });
+      }
+      else
+        res.status(200).send(mylicencia);
+    })
+    .catch(error => res.status(200).send(error));
+   
+   
+  } catch (error) {
+    console.log(error);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadoresLogin.name, error, res);
+  }
+}
+
 function getOperadoresLogin(req, res) {
 
   try {
@@ -35,20 +70,28 @@ function getOperadoresLogin(req, res) {
 
     // Call to service
 
-    operadoresService.getOperadoresLogin(params)
-        .then(function (response) {
-            utils.writeJson(res, response);
-        })
-        .catch(function (response) {
-            utils.writeJson(res, response);
-    });
+    driver
+    .findOne({ where: {username: params.operadores_email, password : params.operadores_loginmanual } })
+    .then(mylicencia => {
+
+      //console.log(mylicencia);
+
+      if (!mylicencia) {
+        res.status(200).send({
+          message: 'Licencia Not Found'
+        });
+      }
+      else
+        res.status(200).send(mylicencia);
+    })
+    .catch(error => res.status(200).send(error));
    
    
   } catch (error) {
+    console.log(error);
     controllerHelper.handleErrorResponse(MODULE_NAME, getOperadoresLogin.name, error, res);
   }
 }
-
 
 function getOperadores(req, res) {
 
@@ -60,7 +103,23 @@ function getOperadores(req, res) {
     };
 
     // Call to service
+    driver.findAll({
+      /*include: [{
+        model: orderstatus
+       
+      }]
+       include: [{ all: true, nested: true }]
+  */})
+     .then((opers) => {
+       console.log(opers);
+       res.status(200).send(opers);
+       //utils.writeJson(res, consoles);
+     }, (error) => {
+       res.status(500).send(error);
+     });
+  
 
+/*
     operadoresService.getOperadores()
         .then(function (response) {
             utils.writeJson(res, response);
@@ -68,7 +127,7 @@ function getOperadores(req, res) {
         .catch(function (response) {
             utils.writeJson(res, response);
     });
-   
+ */  
    
   } catch (error) {
     controllerHelper.handleErrorResponse(MODULE_NAME, getOperadores.name, error, res);

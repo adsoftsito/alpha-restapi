@@ -1,18 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-    /*
-      character varying(20) NOT NULL,
-   character varying(20) NOT NULL,
-   character varying(20) NOT NULL,
-   character varying(200) NOT NULL,
-    character varying(300), 
-       character varying(20), 
-        numeric, 
-        numeric,   
-     numeric, 
-    character varying(1000),
- 
-    */
+   
   const company_place = sequelize.define('company_place', {
     placeid: {
       type: DataTypes.STRING,
@@ -28,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     placelat: DataTypes.NUMERIC,
     placelng: DataTypes.NUMERIC,
     placeradius: DataTypes.NUMERIC,
+    nfctag: DataTypes.STRING,
     placepolygon: DataTypes.STRING
     
 

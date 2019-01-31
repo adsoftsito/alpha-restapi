@@ -206,6 +206,7 @@ CREATE TABLE public.company_place
   placelat      numeric, 
   placelng      numeric,   
   placeradius   numeric, 
+  nfctag character varying(20),
   placepolygon  character varying(1000),
   "createdAt" date NOT NULL DEFAULT ('now'::text)::date,
   "updatedAt" date NOT NULL DEFAULT ('now'::text)::date,
@@ -221,6 +222,12 @@ alter table public.company_place add constraint company_place_placetype_fkey for
 alter table public.company_place add constraint company_place_companyid_fkey foreign key (companyid) references public.company(companyid); 
 
 */
+-- ALTER TABLE public.company_place ADD COLUMN nfctag character varying(20) ;
+-- 04:48:B4:DA:9C:39:80
+
+--update company_place set nfctag = '04:48:B4:DA:9C:39:80' where placeid = 'Tecnomotum'
+
+--select * from company_place
 -- delete from public.order
 -- delete from public.route
 -- select * from public.route
@@ -502,6 +509,8 @@ ALTER TABLE public.driver
   OWNER TO adsoft;
 
 */
+select * from driver;
+--update driver set nfctag = '04:48:B4:DA:9C:39:80' where driverid = 'op-01'
 
 /*
  insert into driver(driverid, name, lastname, license, licensetype, licensedue, companyid, nfctag, email, password) 

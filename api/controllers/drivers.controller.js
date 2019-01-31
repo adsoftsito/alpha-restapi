@@ -95,6 +95,38 @@ sequelize
 ////////////////////////////////////////////////////////////////////////////////
 // PUBLIC METHODS
 ////////////////////////////////////////////////////////////////////////////////
+function getOperadoresNfc(req, res) {
+
+  try {
+    // Receiving parameters
+    var params = {
+      operadores_nfc: req.swagger.params.operadores_nfc.value
+    };
+
+    // Call to service
+
+    driver
+    .findOne({ where: {nfctag: params.operadores_nfc} })
+    .then(mylicencia => {
+
+      //console.log(mylicencia);
+
+      if (!mylicencia) {
+        res.status(200).send({
+          message: 'Licencia Not Found'
+        });
+      }
+      else
+        res.status(200).send(mylicencia);
+    })
+    .catch(error => res.status(200).send(error));
+   
+   
+  } catch (error) {
+    console.log(error);
+    controllerHelper.handleErrorResponse(MODULE_NAME, getOperadoresNfc.name, error, res);
+  }
+}
 
 function getOperadoresLogin(req, res) {
 
@@ -268,6 +300,7 @@ function updateOperador(req, res) {
 
 module.exports = {
   getOperadoresLogin,
+  getOperadoresNfc,
   getDrivers,
   createOperador,
   getDriverById,

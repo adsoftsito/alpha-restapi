@@ -67,7 +67,6 @@ paths:
             $ref: "#/definitions/ErrorResponse"
 
   /operadores/find:
-
     x-swagger-router-controller: drivers.controller
     get:
       description: get a operador
@@ -117,6 +116,31 @@ paths:
         '400':
           description: Invalid username/password supplied
 
+  /operadores/nfc:
+    x-swagger-router-controller: drivers.controller
+    get:
+      tags:
+        - operador
+      summary: Logs operador by nfc into the system
+      description: ''
+      operationId: getOperadoresNfc
+      produces:
+        - application/json
+      parameters:
+        - name: operadores_nfc
+          in: query
+          description: The operador name for login
+          required: true
+          type: string
+
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetOperadorResponse'
+        '400':
+          description: Invalid username/password supplied
+  
   /dispositivo:
     get:
       tags:
@@ -133,7 +157,7 @@ paths:
         404:
           description: "Dispositivos no encontrados"
       x-swagger-router-controller: Dispositivo
-  
+
   '/dispositivo/{dispositivo_id}':
     get:
       tags:
@@ -161,23 +185,49 @@ paths:
           description: Dispositivo not found
       x-swagger-router-controller: Dispositivo
 
-  /place:
+  /places:
+    x-swagger-router-controller: places.controller
     get:
       tags:
       - place
       description: "Obtiene la lista de lugares o puntos clave por cliente"
-      operationId: "getAllplaces"
+      operationId: "getPlaces"
       produces:
       - "application/json"
       responses:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Place"
+            $ref: "#/definitions/GetPlaceListResponse"
         404:
           description: "Lugares no encontrados"
-      x-swagger-router-controller: Place
 
+
+  /places/nfc:
+    x-swagger-router-controller: places.controller
+    get:
+      tags:
+      - place
+      description: "Obtiene la lista de lugares o puntos clave por cliente"
+      operationId: "getPlaceNfc"
+      produces:
+      - "application/json"
+      
+      parameters:  
+        - name: places_nfc
+          in: query
+          description: The nfc for place
+          required: true
+          type: string
+
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Place"
+        404:
+          description: "Place not found"
 
   /licencias/login:
     x-swagger-router-controller: licencias.controller
@@ -212,17 +262,6 @@ paths:
 
   /viajes:
     x-swagger-router-controller: viajes.controller
-#    options:
-#      responses:
-#        default:
-#          description: CORS headers for all operations
-#          headers:
-#            Access-Control-Allow-Origin:
-#              type: string
-#              default: localhost:4200
-#            Access-Control-Allow-Headers:
-#              type: string
-#              default: X-UA-Compatible, X-XSS-Protection
     get:
       tags:
       - viajes
@@ -284,6 +323,33 @@ paths:
         '400':
           description: Invalid OrderStatus
 
+  /viajes/oper:
+    x-swagger-router-controller: viajes.controller
+    get:
+      tags:
+        - viajes
+      summary: Find Viaje by oper
+      description: Returns a single Viaje
+      operationId: getOrdersbyOper
+      produces:
+        - application/json
+      parameters:
+        - name: driverid
+          in: query
+          description: ID of viaje to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/GetViajeListResponse'
+        '400':
+          description: Invalid operid supplied
+        '404':
+          description: Viaje not found
+
+ 
   '/viajes/{id}':
     x-swagger-router-controller: viajes.controller
 
@@ -978,6 +1044,15 @@ definitions:
       tag: 'aabbccdd99'
     xml:
       name: Place
+
+  GetPlaceListResponse:
+    required:
+      - places
+    properties:
+      places:
+        type: array
+        items:
+          $ref: "#/definitions/Place"
 
   
   GetOperadorResponse:
